@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "About — Strata Designs",
+  title: "About — Strata Design",
   description:
-    "Strata Designs is a one-person operation building precision STL files for Toyota Tacoma owners and off-road enthusiasts, based in the Pacific Northwest.",
+    "Strata Design is a one-person operation building precision STL files for Toyota Tacoma owners and off-road enthusiasts, based in the Pacific Northwest.",
 };
 
 export default function AboutPage() {
@@ -13,14 +13,14 @@ export default function AboutPage() {
           About
         </p>
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
-          Strata Designs
+          Strata Design
         </h1>
       </div>
 
       {/* Story */}
       <div className="space-y-6 text-lg leading-relaxed text-muted">
         <p>
-          Strata Designs is a one-person operation built around a simple idea:
+          Strata Design is a one-person operation built around a simple idea:
           make high-quality, functional STL files for Toyota Tacoma owners and
           off-road enthusiasts who want parts that actually fit.
         </p>

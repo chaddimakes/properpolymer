@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div>
             <p className="text-sm font-semibold text-foreground">
-              Strata Designs
+              Strata Design
             </p>
             <p className="text-xs text-muted">
               Precision Engineered. Trail Tested.
@@ -15,7 +15,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-col items-center gap-2 sm:items-end">
             <p className="text-xs text-muted">
-              &copy; {new Date().getFullYear()} Strata Designs. All rights
+              &copy; {new Date().getFullYear()} Strata Design. All rights
               reserved.
             </p>
             <div className="flex gap-4">

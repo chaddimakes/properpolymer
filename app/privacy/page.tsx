@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Privacy Policy — Strata Designs",
-  description: "Privacy Policy for Strata Designs digital products.",
+  title: "Privacy Policy — Strata Design",
+  description: "Privacy Policy for Strata Design digital products.",
 };
 
 export default function PrivacyPage() {

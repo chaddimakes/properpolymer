@@ -2,7 +2,7 @@ import { products } from "@/lib/products";
 import ProductCard from "../components/product-card";
 
 export const metadata = {
-  title: "Products — Strata Designs",
+  title: "Products — Strata Design",
   description: "Browse all premium STL files for Toyota Tacoma accessories.",
 };
 

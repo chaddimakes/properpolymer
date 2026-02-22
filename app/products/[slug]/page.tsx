@@ -21,7 +21,7 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return {};
   return {
-    title: `${product.name} — Strata Designs`,
+    title: `${product.name} — Strata Design`,
     description: product.description,
   };
 }

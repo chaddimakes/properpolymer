@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Strata Designs — Precision Engineered. Trail Tested.",
+  title: "Strata Design — Precision Engineered. Trail Tested.",
   description:
     "Premium STL files for Toyota Tacoma off-road accessories. 3D printable scale models, skid plates, roof racks, and more.",
 };

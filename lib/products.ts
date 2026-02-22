@@ -10,6 +10,7 @@ export interface Product {
   features: string[];
   purchaseUrl?: string;
   stlFiles?: string[]; // filenames in private/stl/ — served securely via /api/download
+  supports?: string;
 }
 
 export const products: Product[] = [
@@ -57,6 +58,7 @@ export const products: Product[] = [
       "Print in PETG, ABS, or ASA for UV and heat resistance",
     ],
     stlFiles: ["Pelican_3310_ELS_Bracket.stl"],
+    supports: "Required",
   },
 ];
 

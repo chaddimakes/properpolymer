@@ -8,6 +8,7 @@ import { useCart } from "@/app/context/cart-context";
 export default function ClearCartOnSuccess() {
   const { clearCart } = useCart();
   useEffect(() => {
+    localStorage.removeItem("strata-cart");
     clearCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

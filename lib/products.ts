@@ -91,6 +91,29 @@ export const products: Product[] = [
     supports: "None",
   },
   {
+    slug: "tacoma-glove-box-organizer",
+    name: "Tacoma Glove Box Organizer",
+    price: 8,
+    description:
+      "Print-ready STL shelf designed to keep your Tacoma glove box organized. Unlike the cheap, flimsy multi-piece versions on Amazon, this is a single-piece heavy duty shelf that fits perfectly with no assembly required. Note: this is a very large print with a max width of 390mm — if printing on a Bambu Lab H2 series printer, rotate the part on your print bed to fit.",
+    longDescription:
+      "Print-ready STL shelf designed to keep your Tacoma glove box organized. Unlike the cheap, flimsy multi-piece versions on Amazon, this is a single-piece heavy duty shelf that fits perfectly with no assembly required. Note: this is a very large print with a max width of 390mm — if printing on a Bambu Lab H2 series printer, rotate the part on your print bed to fit.",
+    image: "/products/Tacoma_Glove_Box_Shelf_01.jpg",
+    images: [
+      "/products/Tacoma_Glove_Box_Shelf_01.jpg",
+      "/products/Tacoma_Glove_Box_Shelf_CAD.jpg",
+    ],
+    category: "Interior",
+    features: [
+      "Single-piece heavy duty shelf — no assembly required",
+      "Fits Toyota Tacoma glove box",
+      "Max print width 390mm — rotate on Bambu Lab H2 series printers",
+    ],
+    material: "PETG or ABS",
+    stlFiles: ["Tacoma_Glove_Box_Shelf.stl"],
+    supports: "None",
+  },
+  {
     slug: "pelican-3310-els-bracket",
     name: "Pelican 3310 ELS Bed Rail Bracket",
     price: 5,

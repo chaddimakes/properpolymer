@@ -114,6 +114,12 @@ export default async function ProductPage({
                 <p className="text-muted">Supports</p>
                 <p className="font-medium text-foreground">Minimal / None</p>
               </div>
+              {product.material && (
+                <div>
+                  <p className="text-muted">Recommended Material</p>
+                  <p className="font-medium text-foreground">{product.material}</p>
+                </div>
+              )}
             </div>
           </div>
 

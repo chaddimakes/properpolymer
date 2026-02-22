@@ -11,6 +11,7 @@ export interface Product {
   purchaseUrl?: string;
   stlFiles?: string[]; // filenames in private/stl/ — served securely via /api/download
   supports?: string;
+  material?: string;
 }
 
 export const products: Product[] = [
@@ -34,8 +35,8 @@ export const products: Product[] = [
       "Fits 3rd Gen Tacoma OEM honeycomb grille",
       "Clean, no-drill light pod mounting",
       "Left and right brackets included",
-      "Print in PETG or ASA for durability",
     ],
+    material: "PETG, ABS, or ASA",
     stlFiles: [
       "Tacoma_Raptor_Light_Brackets.stl",
       "Raptor_Light_Clip.stl",
@@ -55,8 +56,8 @@ export const products: Product[] = [
       "Mounts Pelican 3310 ELS to truck bed rail",
       "Adapts factory wall-mount case for truck use",
       "Glow-in-the-dark flashlight always within reach",
-      "Print in PETG, ABS, or ASA for UV and heat resistance",
     ],
+    material: "PETG, ABS, or ASA",
     stlFiles: ["Pelican_3310_ELS_Bracket.stl"],
     supports: "Required",
   },

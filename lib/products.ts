@@ -14,42 +14,6 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    slug: "tacoma-front-skid-plate",
-    name: "Tacoma Front Skid Plate",
-    price: 4.99,
-    description:
-      "Heavy-duty front skid plate designed for the 3rd Gen Toyota Tacoma. Built for real-world protection and precise fitment.",
-    longDescription:
-      "This precision-engineered front skid plate is designed for the 3rd Gen Toyota Tacoma (2016–2023) with accurate mounting points and realistic ribbing for structural rigidity. Prints cleanly in PLA, PETG, or ASA. Includes optimized geometry for FDM printing with minimal supports.",
-    image: "/products/skid-plate.svg",
-    category: "Armor & Protection",
-    features: [
-      "Accurate 3rd Gen Tacoma fitment",
-      "Reinforced rib pattern for realism",
-      "Optimized for FDM — minimal supports",
-      "Compatible with PLA, PETG, and ASA",
-    ],
-    stlFiles: ["tacoma-front-skid-plate.stl"],
-  },
-  {
-    slug: "tacoma-roof-rack-system",
-    name: "Tacoma Roof Rack System",
-    price: 6.99,
-    description:
-      "Modular roof rack system for the Toyota Tacoma. Includes crossbars and mounting brackets.",
-    longDescription:
-      "A fully modular roof rack system inspired by premium overland setups for the Toyota Tacoma. This STL pack includes the main rack platform, crossbars, and mounting feet that snap into place. The open-rail design allows you to add custom accessories like light bars, cargo boxes, or jerry cans. Prints as separate components for easy assembly and painting.",
-    image: "/products/roof-rack.svg",
-    category: "Overland & Cargo",
-    features: [
-      "Modular snap-fit assembly",
-      "Includes platform, crossbars, and mounts",
-      "Full-size Tacoma fitment",
-      "Open-rail design for accessories",
-    ],
-    stlFiles: ["tacoma-roof-rack-system.stl"],
-  },
-  {
     slug: "tacoma-raptor-light-brackets",
     name: "Tacoma Raptor Light Brackets",
     price: 8,
@@ -77,22 +41,22 @@ export const products: Product[] = [
     ],
   },
   {
-    slug: "tacoma-rock-sliders",
-    name: "Tacoma Rock Sliders",
-    price: 5.49,
+    slug: "pelican-3310-els-bracket",
+    name: "Pelican 3310 ELS Bed Rail Bracket",
+    price: 5,
     description:
-      "Bolt-on style rock sliders for the Toyota Tacoma. Tube design with rear kick-out.",
+      "Print-ready STL bracket designed to mount the Pelican 3310 ELS Emergency Lighting Station to your truck bed rail for quick, easy access.",
     longDescription:
-      "These rock sliders replicate the aggressive tube-steel look of Tacoma trail armor. Featuring a true bolt-on design with realistic mounting tabs and a functional kick-out at the rear for improved departure angle clearance. The dual-tube construction adds visual weight and accuracy. Left and right sides are mirrored for proper fitment. Designed for reliable FDM printing in a flat orientation with no supports needed.",
-    image: "/products/rock-sliders.svg",
-    category: "Armor & Protection",
+      "Print-ready STL bracket designed to mount the Pelican 3310 ELS Emergency Lighting Station to your truck bed rail for quick, easy access. The Pelican 3310 ELS is a glow-in-the-dark photoluminescent flashlight that comes in a wall-mountable case — this bracket adapts that mount for truck bed rail use. Supports required. Print in PETG, ABS, or ASA for UV and heat resistance.",
+    image: "/products/Pelican_3310_ELS_Bracket_CAD.jpg",
+    category: "Storage & Organization",
     features: [
-      "Dual-tube construction for realism",
-      "Rear kick-out for departure angle",
-      "Mirrored L/R pair included",
-      "No supports needed — prints flat",
+      "Mounts Pelican 3310 ELS to truck bed rail",
+      "Adapts factory wall-mount case for truck use",
+      "Glow-in-the-dark flashlight always within reach",
+      "Print in PETG, ABS, or ASA for UV and heat resistance",
     ],
-    stlFiles: ["tacoma-rock-sliders.stl"],
+    stlFiles: ["Pelican_3310_ELS_Bracket.stl"],
   },
 ];
 

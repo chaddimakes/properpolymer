@@ -42,6 +42,22 @@ export default function Navbar() {
           >
             Products
           </Link>
+          <Link
+            href="/about"
+            className={`text-sm font-medium transition-colors hover:text-accent ${
+              pathname === "/about" ? "text-accent" : "text-muted"
+            }`}
+          >
+            About
+          </Link>
+          <Link
+            href="/contact"
+            className={`text-sm font-medium transition-colors hover:text-accent ${
+              pathname === "/contact" ? "text-accent" : "text-muted"
+            }`}
+          >
+            Contact
+          </Link>
 
           {/* Cart icon */}
           <Link

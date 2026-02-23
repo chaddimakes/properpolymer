@@ -65,37 +65,45 @@ export async function POST(req: NextRequest) {
   );
 
   const html = `
-    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d0d0d;padding:40px 24px;color:#f0f0f0;max-width:600px;margin:0 auto;">
-      <div style="margin-bottom:32px;">
-        <p style="margin:0 0 4px;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Payment Confirmed</p>
-        <h1 style="margin:0;font-size:26px;font-weight:700;color:#f0f0f0;">Thanks for your order!</h1>
-        <p style="margin:8px 0 0;color:#888;font-size:14px;">Your STL files are ready to download below.</p>
+  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;padding:40px 16px;color:#1a1a1a;">
+    <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+
+      <div style="background:#111111;padding:28px 32px;">
+        <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Strata Design</p>
+        <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
       </div>
 
-      <hr style="border:none;border-top:1px solid #222;margin:0 0 28px;" />
+      <div style="padding:32px;">
+        <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Payment Confirmed</p>
+        <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Thanks for your order!</h1>
+        <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your STL files are ready to download. Click any file link below to download directly.</p>
 
-      <h2 style="margin:0 0 14px;font-size:14px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:#999;">Your Downloads</h2>
-      ${productsHtml}
+        <p style="margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999999;">Your Downloads</p>
 
-      <p style="margin:20px 0 0;font-size:13px;color:#666;">
-        Order total: <strong style="color:#f0f0f0;">$${orderTotal.toFixed(2)}</strong>
-      </p>
+        ${productsHtml}
 
-      <hr style="border:none;border-top:1px solid #222;margin:28px 0;" />
+        <p style="margin:20px 0 28px;font-size:13px;color:#666666;">
+          Order total: <strong style="color:#111111;">${orderTotal.toFixed(2)}</strong>
+        </p>
 
-      <div style="background:#161616;border:1px solid #2a2a2a;border-radius:8px;padding:16px;margin-bottom:28px;">
-        <p style="margin:0 0 6px;font-size:14px;font-weight:600;color:#f0f0f0;">Save your order page</p>
-        <p style="margin:0;font-size:13px;color:#888;">
-          Bookmark this link to re-download your files any time — it never expires:<br />
-          <a href="${successUrl}" style="color:#e07b39;word-break:break-all;">${successUrl}</a>
+        <hr style="border:none;border-top:1px solid #eeeeee;margin:0 0 24px;" />
+
+        <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-left:3px solid #e07b39;border-radius:4px;padding:16px 20px;margin-bottom:8px;">
+          <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#111111;">Save your order page</p>
+          <p style="margin:0 0 10px;font-size:13px;color:#666666;line-height:1.5;">Bookmark this link to re-download your files any time — it never expires:</p>
+          <a href="${successUrl}" style="color:#e07b39;font-size:12px;word-break:break-all;text-decoration:none;">${successUrl}</a>
+        </div>
+      </div>
+
+      <div style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
+        <p style="margin:0;font-size:12px;color:#999999;">
+          Strata Design &bull; <a href="mailto:chaddimakes@gmail.com" style="color:#999999;text-decoration:none;">chaddimakes@gmail.com</a>
         </p>
       </div>
 
-      <p style="margin:0;font-size:12px;color:#555;">
-        Strata Design &bull; <a href="mailto:chaddimakes@gmail.com" style="color:#555;">chaddimakes@gmail.com</a>
-      </p>
     </div>
-  `;
+  </div>
+`;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",

@@ -8,9 +8,8 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
-        {/* Background photo — Unsplash: off-road trail scene */}
         <Image
-          src="https://images.unsplash.com/photo-1547636067-1fc3e8e5a99d?auto=format&fit=crop&w=1920&q=80"
+          src="/hero.jpg"
           alt="Off-road trail"
           fill
           className="object-cover object-center"

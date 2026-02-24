@@ -1,6 +1,7 @@
 export interface ProductVariant {
   name: string;
   stlFiles: string[];
+  previewImage?: string;
 }
 
 export interface Product {
@@ -167,6 +168,7 @@ export const products: Product[] = [
     variants: [
       {
         name: "Without Dimmer",
+        previewImage: "/products/Tacoma_DC_Power_Panel_no_dimmer_CAD.jpg",
         stlFiles: [
           "Tacoma_DC_Power_Panel_No_Dimmer.stl",
           "Tacoma_DC_Power_Panel_Knob.stl",
@@ -175,6 +177,7 @@ export const products: Product[] = [
       },
       {
         name: "With Dimmer",
+        previewImage: "/products/Tacoma_DC_Power_Panel_dimmer_CAD.jpg",
         stlFiles: [
           "Tacoma_DC_Power_Panel_Dimmer_version.stl",
           "Tacoma_DC_Power_Panel_Knob.stl",

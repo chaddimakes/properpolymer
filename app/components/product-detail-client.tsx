@@ -13,9 +13,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const router = useRouter();
   const [added, setAdded] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-  const [selectedVariant, setSelectedVariant] = useState<string | undefined>(
-    product.variants?.[0]?.name,
-  );
+  const [selectedVariant, setSelectedVariant] = useState<string | undefined>(undefined);
 
   const inCart = items.some((i) => i.slug === product.slug);
 

@@ -33,6 +33,7 @@ export interface Product {
   toggleCombinations?: ProductToggleCombination[]; // file/image matrix for toggle combinations
   supports?: string;
   material?: string;
+  requiredHardware?: string[];
 }
 
 export const products: Product[] = [
@@ -87,6 +88,11 @@ export const products: Product[] = [
     material: "PETG or ASA",
     stlFiles: ["Roof_Rack_Camp_Light_Mount.stl"],
     supports: "Minimal / None",
+    requiredHardware: [
+      "4x M6 x 16mm Button Head Bolts",
+      "2x M6 Square Nuts",
+      "2x M6 Washers",
+    ],
   },
   {
     slug: "tacoma-midrange-speaker-mount",
@@ -242,6 +248,13 @@ export const products: Product[] = [
     material: "PETG, ABS, or ASA",
     stlFiles: ["Pelican_3310_ELS_Bracket.stl"],
     supports: "Required",
+    requiredHardware: [
+      "2x M5 x 10mm Button Head Bolts",
+      "2x M5 Washers",
+      "2x M5 Hex Nuts",
+      "1x 3/8-16 Bed Rail Nut (Toyota Tacoma)",
+      '1x 3/8-16 x 0.75" Bolt',
+    ],
   },
 ];
 

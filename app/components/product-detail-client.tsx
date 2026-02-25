@@ -204,6 +204,26 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         {/* Description */}
         <p className="mb-8 leading-relaxed text-muted">{product.longDescription}</p>
 
+        {/* Required Hardware */}
+        {product.requiredHardware && product.requiredHardware.length > 0 && (
+          <div className="mb-8">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+              Required Hardware
+            </h2>
+            <ul className="space-y-2">
+              {product.requiredHardware.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-sm text-muted"
+                >
+                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Features */}
         <div className="mb-8">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">

@@ -188,16 +188,16 @@ export default function ProductDetailClient({ product }: { product: Product }) {
           )}
 
           <button
-            onClick={handleBuyNow}
+            onClick={handleAddToCart}
             className="w-full rounded-lg bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
           >
-            Buy Now
+            {added ? "Added to Cart ✓" : inCart ? "In Cart — Add Another" : "Add to Cart"}
           </button>
           <button
-            onClick={handleAddToCart}
+            onClick={handleBuyNow}
             className="w-full rounded-lg border border-accent px-7 py-3.5 text-sm font-semibold text-accent transition-colors hover:bg-accent/10"
           >
-            {added ? "Added to Cart ✓" : inCart ? "In Cart — Add Another" : "Add to Cart"}
+            Buy Now
           </button>
         </div>
 

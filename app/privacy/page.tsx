@@ -99,10 +99,10 @@ export default function PrivacyPage() {
           <p>
             Questions about your data or this policy? Email us at{" "}
             <a
-              href="mailto:chaddimakes@gmail.com"
+              href="mailto:hello@properpolymer.com"
               className="text-accent underline underline-offset-4 hover:opacity-80"
             >
-              chaddimakes@gmail.com
+              hello@properpolymer.com
             </a>
             .
           </p>

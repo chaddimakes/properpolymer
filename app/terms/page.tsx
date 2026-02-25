@@ -111,10 +111,10 @@ export default function TermsPage() {
           <p>
             If you have any questions about these terms, reach out at{" "}
             <a
-              href="mailto:chaddimakes@gmail.com"
+              href="mailto:hello@properpolymer.com"
               className="text-accent underline underline-offset-4 hover:opacity-80"
             >
-              chaddimakes@gmail.com
+              hello@properpolymer.com
             </a>
             .
           </p>

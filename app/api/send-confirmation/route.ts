@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
 
       <div style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
         <p style="margin:0;font-size:12px;color:#999999;">
-          Proper Polymer &bull; <a href="mailto:chaddimakes@gmail.com" style="color:#999999;text-decoration:none;">chaddimakes@gmail.com</a>
+          Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
         </p>
       </div>
 
@@ -125,11 +125,11 @@ export async function POST(req: NextRequest) {
   });
 
   await transporter.sendMail({
-    from: `"Proper Polymer" <chaddimakes@gmail.com>`,
+    from: `"Proper Polymer" <hello@properpolymer.com>`,
     to: customerEmail,
     subject: "Your Proper Polymer Order — STL Download Links",
     html,
-    text: `Thanks for your order!\n\nVisit your order page to download your files:\n${successUrl}\n\n— Proper Polymer\nchaddimakes@gmail.com`,
+    text: `Thanks for your order!\n\nVisit your order page to download your files:\n${successUrl}\n\n— Proper Polymer\nhello@properpolymer.com`,
   });
 
   return NextResponse.json({ ok: true });

@@ -51,7 +51,15 @@ export default function ContactPage() {
         </h1>
         <p className="text-muted">
           Questions about a file, fitment issues, or just want to say hi —
-          send a message and I&apos;ll get back to you.
+          send a message and I&apos;ll get back to you. You can also email us
+          directly at{" "}
+          <a
+            href="mailto:hello@properpolymer.com"
+            className="text-accent underline underline-offset-4 hover:opacity-80"
+          >
+            hello@properpolymer.com
+          </a>
+          .
         </p>
       </div>
 

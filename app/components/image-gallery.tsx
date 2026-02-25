@@ -56,14 +56,18 @@ export default function ImageGallery({
   }
 
   // Auto-scroll thumbnail window to keep the active thumbnail visible
+  // Only react to activeSorted changes — NOT thumbOffset — so arrow clicks
+  // aren't immediately undone by this effect snapping back.
   useEffect(() => {
     if (mainImageSrc !== undefined) return; // variant override, no thumb is "active"
-    if (activeSorted < thumbOffset) {
-      setThumbOffset(activeSorted);
-    } else if (activeSorted >= thumbOffset + VISIBLE_COUNT) {
-      setThumbOffset(Math.min(activeSorted - VISIBLE_COUNT + 1, Math.max(0, sorted.length - VISIBLE_COUNT)));
-    }
-  }, [activeSorted, mainImageSrc, sorted.length, thumbOffset]);
+    setThumbOffset((prev) => {
+      if (activeSorted < prev) return activeSorted;
+      if (activeSorted >= prev + VISIBLE_COUNT)
+        return Math.min(activeSorted - VISIBLE_COUNT + 1, Math.max(0, sorted.length - VISIBLE_COUNT));
+      return prev;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSorted, mainImageSrc, sorted.length]);
 
   const maxOffset = Math.max(0, sorted.length - VISIBLE_COUNT);
   const canScrollLeft = thumbOffset > 0;

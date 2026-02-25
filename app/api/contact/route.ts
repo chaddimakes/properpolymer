@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   });
 
   await transporter.sendMail({
-    from: `"Strata Design Contact" <${process.env.CONTACT_EMAIL_USER}>`,
+    from: `"Proper Polymer Contact" <${process.env.CONTACT_EMAIL_USER}>`,
     to: "chaddimakes@gmail.com",
     replyTo: email,
     subject: `New message from ${name}`,

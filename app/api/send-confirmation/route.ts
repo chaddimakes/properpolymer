@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
     <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
       <div style="background:#111111;padding:28px 32px;">
-        <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Strata Design</p>
+        <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
         <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
       </div>
 
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
 
       <div style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
         <p style="margin:0;font-size:12px;color:#999999;">
-          Strata Design &bull; <a href="mailto:chaddimakes@gmail.com" style="color:#999999;text-decoration:none;">chaddimakes@gmail.com</a>
+          Proper Polymer &bull; <a href="mailto:chaddimakes@gmail.com" style="color:#999999;text-decoration:none;">chaddimakes@gmail.com</a>
         </p>
       </div>
 
@@ -125,11 +125,11 @@ export async function POST(req: NextRequest) {
   });
 
   await transporter.sendMail({
-    from: `"Strata Design" <chaddimakes@gmail.com>`,
+    from: `"Proper Polymer" <chaddimakes@gmail.com>`,
     to: customerEmail,
-    subject: "Your Strata Design Order — STL Download Links",
+    subject: "Your Proper Polymer Order — STL Download Links",
     html,
-    text: `Thanks for your order!\n\nVisit your order page to download your files:\n${successUrl}\n\n— Strata Design\nchaddimakes@gmail.com`,
+    text: `Thanks for your order!\n\nVisit your order page to download your files:\n${successUrl}\n\n— Proper Polymer\nchaddimakes@gmail.com`,
   });
 
   return NextResponse.json({ ok: true });

@@ -16,11 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Strata Design — Precision Engineered. Trail Tested.",
+  title: "Proper Polymer — Precision Engineered. Trail Tested.",
   description:
     "Premium STL files for Toyota Tacoma off-road accessories. 3D printable scale models, skid plates, roof racks, and more.",
   openGraph: {
-    title: "Strata Design",
+    title: "Proper Polymer",
     description: "Premium 3D printable STL files for Toyota Tacoma accessories.",
     url: "https://stratadesigns.vercel.app",
     type: "website",

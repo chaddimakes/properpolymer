@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const metadata = {
-  title: "Order Confirmed — Strata Design",
+  title: "Order Confirmed — Proper Polymer",
 };
 
 export default async function SuccessPage({ searchParams }: Props) {

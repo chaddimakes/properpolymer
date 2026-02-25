@@ -19,7 +19,7 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return {};
   return {
-    title: `${product.name} — Strata Design`,
+    title: `${product.name} — Proper Polymer`,
     description: product.description,
   };
 }

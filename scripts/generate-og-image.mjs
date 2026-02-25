@@ -25,7 +25,7 @@ const svg = `
     text-anchor="middle"
     dominant-baseline="middle"
     letter-spacing="-2"
-  >Strata Design</text>
+  >Proper Polymer</text>
 
   <!-- subtitle -->
   <text

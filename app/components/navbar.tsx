@@ -13,11 +13,11 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-3 py-3 sm:px-6 sm:py-4">
         <Link href="/" className="flex shrink-0 items-center gap-2 sm:gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent font-mono text-xs font-bold text-white sm:h-9 sm:w-9 sm:text-sm">
-            SD
+            PP
           </div>
           <div className="leading-tight">
             <span className="block text-sm font-bold tracking-tight text-foreground sm:text-lg">
-              Strata Design
+              Proper Polymer
             </span>
             <span className="hidden sm:block text-[11px] uppercase tracking-widest text-muted">
               Precision Engineered. Trail Tested.

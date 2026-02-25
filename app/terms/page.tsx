@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Terms of Service — Strata Design",
-  description: "Terms of Service for Strata Design digital products.",
+  title: "Terms of Service — Proper Polymer",
+  description: "Terms of Service for Proper Polymer digital products.",
 };
 
 export default function TermsPage() {
@@ -22,7 +22,7 @@ export default function TermsPage() {
             All Sales Are Final
           </h2>
           <p>
-            All products sold by Strata Design are digital files. Once a
+            All products sold by Proper Polymer are digital files. Once a
             purchase is complete and files have been delivered, the sale is
             final. No refunds or exchanges are offered. Please review product
             descriptions, photos, and compatibility notes carefully before
@@ -35,7 +35,7 @@ export default function TermsPage() {
             Personal Use Only
           </h2>
           <p>
-            Files purchased from Strata Design are licensed for personal,
+            Files purchased from Proper Polymer are licensed for personal,
             non-commercial use only. You may not resell, redistribute, share,
             or modify and redistribute these files in any form — digital or
             printed — without explicit written permission. Each license covers
@@ -48,13 +48,13 @@ export default function TermsPage() {
             Print Compatibility Disclaimer
           </h2>
           <p>
-            Strata Design provides STL files as-is. While every design is
+            Proper Polymer provides STL files as-is. While every design is
             validated on a real 2020 Toyota Tacoma TRD Off-Road, we make no
             guarantees about fit or compatibility with your specific vehicle,
             trim, year, or setup. Print results vary based on printer
             calibration, material, and slicer settings. You are responsible for
             verifying that a part is appropriate for your use case before
-            printing or installing it. Strata Design is not liable for failed
+            printing or installing it. Proper Polymer is not liable for failed
             prints, poor fit, or any damage resulting from use of these files.
           </p>
         </section>
@@ -64,7 +64,7 @@ export default function TermsPage() {
             Product Updates & Pricing
           </h2>
           <p>
-            Strata Design reserves the right to update, revise, or discontinue
+            Proper Polymer reserves the right to update, revise, or discontinue
             any product — including file revisions and pricing changes — at any
             time without prior notice. If a significant update is made to a file
             you&apos;ve already purchased, we&apos;ll make a reasonable effort

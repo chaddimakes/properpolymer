@@ -58,12 +58,17 @@ export default function CartPage() {
 
               <div className="flex flex-1 flex-col justify-between">
                 <div className="flex items-start justify-between gap-2">
-                  <Link
-                    href={`/products/${item.slug}`}
-                    className="font-semibold text-foreground transition-colors hover:text-accent"
-                  >
-                    {item.name}
-                  </Link>
+                  <div>
+                    <Link
+                      href={`/products/${item.slug}`}
+                      className="font-semibold text-foreground transition-colors hover:text-accent"
+                    >
+                      {item.name}
+                    </Link>
+                    {item.variantName && (
+                      <p className="mt-0.5 text-xs text-muted">{item.variantName}</p>
+                    )}
+                  </div>
                   <span className="shrink-0 font-bold text-foreground">
                     ${(item.price * item.quantity).toFixed(2)}
                   </span>

@@ -1,18 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useCart } from "@/app/context/cart-context";
 import { useRouter } from "next/navigation";
 import type { Product } from "@/lib/products";
 import ImageGallery from "./image-gallery";
-import Lightbox from "./lightbox";
 
 export default function ProductDetailClient({ product }: { product: Product }) {
   const { addItem, items } = useCart();
   const router = useRouter();
   const [added, setAdded] = useState(false);
-  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<string | undefined>(undefined);
   const [toggles, setToggles] = useState<Record<string, boolean>>(
     Object.fromEntries(
@@ -32,24 +30,53 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     (v) => v.name === selectedVariant,
   );
 
-  const displayImage =
-    currentCombination?.previewImage ??
-    selectedVariantData?.previewImage ??
-    product.image;
-  const hasOverrideImage = !!(
-    currentCombination?.previewImage ?? selectedVariantData?.previewImage
-  );
+  // Build gallery image list
+  const images = product.images ?? [product.image];
 
-  // For toggle products, compute a human-readable label and the resolved file list
+  // Determine gallery display — variant sync or manual override
+  const variantPreviewImage =
+    currentCombination?.previewImage ?? selectedVariantData?.previewImage;
+
+  let galleryIndex: number;
+  let galleryMainSrc: string | undefined;
+
+  if (manualIndex !== null) {
+    galleryIndex = manualIndex;
+    galleryMainSrc = undefined;
+  } else if (variantPreviewImage) {
+    const idx = images.indexOf(variantPreviewImage);
+    if (idx >= 0) {
+      galleryIndex = idx;
+      galleryMainSrc = undefined;
+    } else {
+      // Preview image not in the thumbnails array — show it as an override
+      galleryIndex = 0;
+      galleryMainSrc = variantPreviewImage;
+    }
+  } else {
+    galleryIndex = 0;
+    galleryMainSrc = undefined;
+  }
+
+  // For toggle products, build "With X, No Y" description for cart
   const toggleVariantName = product.toggleOptions
     ? product.toggleOptions
-        .filter((opt) => toggles[opt.key])
-        .map((opt) => opt.label)
-        .join(" + ") || undefined
+        .map((opt) => (toggles[opt.key] ? `With ${opt.label}` : `No ${opt.label}`))
+        .join(", ")
     : undefined;
 
   const effectiveVariantName = toggleVariantName ?? selectedVariant;
   const selectedFiles = currentCombination?.stlFiles;
+
+  function handleToggle(key: string, value: boolean) {
+    setToggles((prev) => ({ ...prev, [key]: value }));
+    setManualIndex(null);
+  }
+
+  function handleVariantSelect(name: string) {
+    setSelectedVariant(name);
+    setManualIndex(null);
+  }
 
   function handleAddToCart() {
     addItem({
@@ -77,40 +104,15 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   }
 
   return (
-    <>
     <div className="grid gap-12 lg:grid-cols-2">
-      {/* Image */}
-      {hasOverrideImage ? (
-        <div
-          className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-[#141414]"
-          style={{ cursor: "zoom-in" }}
-          onClick={() => setLightboxSrc(displayImage)}
-        >
-          <Image
-            src={displayImage}
-            alt={`${product.name}${effectiveVariantName ? ` — ${effectiveVariantName}` : ""}`}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      ) : product.images && product.images.length > 1 ? (
-        <ImageGallery images={product.images} alt={product.name} />
-      ) : (
-        <div
-          className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-[#141414]"
-          style={{ cursor: "zoom-in" }}
-          onClick={() => setLightboxSrc(product.image)}
-        >
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
+      {/* Image Gallery — thumbnails always visible, syncs with variant */}
+      <ImageGallery
+        images={images}
+        alt={product.name}
+        selectedIndex={galleryIndex}
+        onSelectIndex={setManualIndex}
+        mainImageSrc={galleryMainSrc}
+      />
 
       {/* Details */}
       <div>
@@ -123,55 +125,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         <p className="mb-6 text-2xl font-bold text-foreground">
           ${product.price.toFixed(2)}
         </p>
-        <p className="mb-8 leading-relaxed text-muted">{product.longDescription}</p>
 
-        {/* Features */}
-        <div className="mb-8">
-          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
-            Features
-          </h2>
-          <ul className="space-y-2">
-            {product.features.map((feature) => (
-              <li
-                key={feature}
-                className="flex items-start gap-3 text-sm text-muted"
-              >
-                <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* File Info */}
-        <div className="mb-8 rounded-lg border border-border bg-surface p-5">
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
-            File Details
-          </h3>
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            <div>
-              <p className="text-muted">Format</p>
-              <p className="font-medium text-foreground">STL</p>
-            </div>
-            <div>
-              <p className="text-muted">Print Method</p>
-              <p className="font-medium text-foreground">FDM Optimized</p>
-            </div>
-            <div>
-              <p className="text-muted">Supports</p>
-              <p className="font-medium text-foreground">Minimal / None</p>
-            </div>
-            {product.material && (
-              <div>
-                <p className="text-muted">Recommended Material</p>
-                <p className="font-medium text-foreground">{product.material}</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Toggle options + variant selector + cart buttons */}
-        <div className="flex flex-col gap-3">
+        {/* Variant selector + cart buttons */}
+        <div className="mb-8 flex flex-col gap-3">
           {/* Toggle options (independent boolean selectors) */}
           {product.toggleOptions && product.toggleOptions.length > 0 && (
             <div className="mb-1 flex flex-col gap-4">
@@ -182,9 +138,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                   </p>
                   <div className="flex gap-2">
                     <button
-                      onClick={() =>
-                        setToggles((prev) => ({ ...prev, [opt.key]: false }))
-                      }
+                      onClick={() => handleToggle(opt.key, false)}
                       className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                         !toggles[opt.key]
                           ? "border-accent bg-accent text-white"
@@ -194,9 +148,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                       Without {opt.label}
                     </button>
                     <button
-                      onClick={() =>
-                        setToggles((prev) => ({ ...prev, [opt.key]: true }))
-                      }
+                      onClick={() => handleToggle(opt.key, true)}
                       className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                         toggles[opt.key]
                           ? "border-accent bg-accent text-white"
@@ -221,7 +173,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 {product.variants.map((variant) => (
                   <button
                     key={variant.name}
-                    onClick={() => setSelectedVariant(variant.name)}
+                    onClick={() => handleVariantSelect(variant.name)}
                     className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                       selectedVariant === variant.name
                         ? "border-accent bg-accent text-white"
@@ -239,7 +191,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             onClick={handleBuyNow}
             className="w-full rounded-lg bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
           >
-            Buy Now — ${product.price.toFixed(2)}
+            Buy Now
           </button>
           <button
             onClick={handleAddToCart}
@@ -248,11 +200,55 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             {added ? "Added to Cart ✓" : inCart ? "In Cart — Add Another" : "Add to Cart"}
           </button>
         </div>
+
+        {/* Description */}
+        <p className="mb-8 leading-relaxed text-muted">{product.longDescription}</p>
+
+        {/* Features */}
+        <div className="mb-8">
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+            Features
+          </h2>
+          <ul className="space-y-2">
+            {product.features.map((feature) => (
+              <li
+                key={feature}
+                className="flex items-start gap-3 text-sm text-muted"
+              >
+                <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* File Info */}
+        <div className="rounded-lg border border-border bg-surface p-5">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
+            File Details
+          </h3>
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <p className="text-muted">Format</p>
+              <p className="font-medium text-foreground">STL</p>
+            </div>
+            <div>
+              <p className="text-muted">Print Method</p>
+              <p className="font-medium text-foreground">FDM Optimized</p>
+            </div>
+            <div>
+              <p className="text-muted">Supports</p>
+              <p className="font-medium text-foreground">Minimal / None</p>
+            </div>
+            {product.material && (
+              <div>
+                <p className="text-muted">Recommended Material</p>
+                <p className="font-medium text-foreground">{product.material}</p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
-    {lightboxSrc && (
-      <Lightbox src={lightboxSrc} alt={product.name} onClose={() => setLightboxSrc(null)} />
-    )}
-    </>
   );
 }

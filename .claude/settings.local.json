@@ -8,7 +8,8 @@
       "Bash(cd D:/Users/chads/OneDrive/Documents/VSCode/chaddimakes && npm install sharp --save-dev 2>&1 | tail -5 && node -e \"require\\('sharp'\\); console.log\\('sharp ok'\\)\" 2>&1)",
       "Bash(cd:*)",
       "Bash(claude config:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(git:*)"
     ]
   }
 }

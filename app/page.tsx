@@ -4,8 +4,28 @@ import { products } from "@/lib/products";
 import ProductCard from "./components/product-card";
 
 export default function Home() {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Proper Polymer",
+    url: "https://www.properpolymer.com",
+    image: "https://www.properpolymer.com/og-image.jpg",
+    description:
+      "Proper Polymer designs and sells premium 3D printable STL files for Toyota Tacoma accessories. Precision engineered and trail tested.",
+    sameAs: [],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "hello@properpolymer.com",
+      contactType: "customer service",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <Image

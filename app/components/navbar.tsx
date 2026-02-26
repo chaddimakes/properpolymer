@@ -51,6 +51,14 @@ export default function Navbar() {
             About
           </Link>
           <Link
+            href="/blog"
+            className={`text-xs font-medium transition-colors hover:text-accent sm:text-sm ${
+              pathname.startsWith("/blog") ? "text-accent" : "text-muted"
+            }`}
+          >
+            Blog
+          </Link>
+          <Link
             href="/contact"
             className={`text-xs font-medium transition-colors hover:text-accent sm:text-sm ${
               pathname === "/contact" ? "text-accent" : "text-muted"

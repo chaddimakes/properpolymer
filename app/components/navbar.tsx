@@ -44,6 +44,7 @@ function CartIcon() {
 const shopLinks = [
   { label: "Toyota Tacoma (3rd Gen)", href: "/products?vehicle=tacoma" },
   { label: "Universal", href: "/products?vehicle=universal" },
+  { label: "Toyota Sienna", href: "", comingSoon: true },
 ];
 
 const companyLinks = [
@@ -56,11 +57,15 @@ export default function Navbar() {
   const pathname = usePathname();
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [shopExpanded, setShopExpanded] = useState(false);
   const megaRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   const closeMega = useCallback(() => setMegaOpen(false), []);
-  const closeMobile = useCallback(() => setMobileOpen(false), []);
+  const closeMobile = useCallback(() => {
+    setMobileOpen(false);
+    setShopExpanded(false);
+  }, []);
 
   // Close menus on route change
   useEffect(() => {
@@ -68,7 +73,7 @@ export default function Navbar() {
     closeMobile();
   }, [pathname, closeMega, closeMobile]);
 
-  // Close mega menu on Escape
+  // Close menus on Escape
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
@@ -112,22 +117,59 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-3 py-3 sm:px-6 sm:py-4">
-        {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent font-mono text-xs font-bold text-white sm:h-9 sm:w-9 sm:text-sm">
+        {/* ── Desktop layout: logo left, nav right ── */}
+        <Link href="/" className="hidden md:flex shrink-0 items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-accent font-mono text-sm font-bold text-white">
             PP
           </div>
           <div className="leading-tight">
-            <span className="block text-sm font-bold tracking-tight text-foreground sm:text-lg">
+            <span className="block text-lg font-bold tracking-tight text-foreground">
               Proper Polymer
             </span>
-            <span className="hidden sm:block text-[11px] uppercase tracking-widest text-muted">
+            <span className="block text-[11px] uppercase tracking-widest text-muted">
               Precision Engineered. Trail Tested.
             </span>
           </div>
         </Link>
 
-        {/* Desktop nav */}
+        {/* ── Mobile layout: hamburger | brand | cart ── */}
+        <div className="flex md:hidden w-full items-center justify-between">
+          {/* Hamburger — left */}
+          <button
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            className="text-foreground p-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+
+          {/* Brand — center */}
+          <Link
+            href="/"
+            className="absolute left-1/2 -translate-x-1/2 text-base font-bold tracking-tight text-foreground"
+          >
+            Proper Polymer
+          </Link>
+
+          {/* Cart — right */}
+          <CartIcon />
+        </div>
+
+        {/* ── Desktop nav ── */}
         <div className="hidden md:flex items-center gap-8">
           <div
             className="relative"
@@ -154,22 +196,25 @@ export default function Navbar() {
                     Shop
                   </h3>
                   <ul className="space-y-2">
-                    {shopLinks.map((link) => (
-                      <li key={link.href}>
-                        <Link
-                          href={link.href}
-                          className="text-sm text-foreground transition-colors hover:text-accent"
-                          onClick={closeMega}
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                    <li>
-                      <span className="text-sm text-muted/50 cursor-default">
-                        Toyota Sienna (Coming Soon)
-                      </span>
-                    </li>
+                    {shopLinks.map((link) =>
+                      link.comingSoon ? (
+                        <li key={link.label}>
+                          <span className="text-sm text-muted/50 cursor-default">
+                            {link.label} (Coming Soon)
+                          </span>
+                        </li>
+                      ) : (
+                        <li key={link.href}>
+                          <Link
+                            href={link.href}
+                            className="text-sm text-foreground transition-colors hover:text-accent"
+                            onClick={closeMega}
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
               </div>
@@ -192,105 +237,110 @@ export default function Navbar() {
 
           <CartIcon />
         </div>
-
-        {/* Mobile nav controls */}
-        <div className="flex md:hidden items-center gap-4">
-          <CartIcon />
-          <button
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            className="text-muted hover:text-accent transition-colors"
-          >
-            {mobileOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            )}
-          </button>
-        </div>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40 md:hidden"
+      {/* ── Full-screen mobile slide-out menu ── */}
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/60 transition-opacity duration-300 md:hidden ${
+          mobileOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={closeMobile}
+      />
+
+      {/* Panel — slides in from left */}
+      <div
+        className={`fixed inset-y-0 left-0 z-50 w-full bg-[#0d0d0d] transition-transform duration-300 ease-in-out md:hidden ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/* Menu header — close button in same position as hamburger */}
+        <div className="flex items-center px-3 py-3">
+          <button
             onClick={closeMobile}
-          />
-          {/* Slide-out panel */}
-          <div className="absolute right-0 top-full z-50 w-72 border-l border-b border-border rounded-bl-lg bg-[#0d0d0d] shadow-xl md:hidden">
-            <div className="px-6 py-6 space-y-6">
-              {/* Shop section */}
-              <div>
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">
-                  Shop
-                </h3>
-                <ul className="space-y-3">
-                  {shopLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-foreground transition-colors hover:text-accent"
-                        onClick={closeMobile}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                  <li>
-                    <span className="text-sm text-muted/50 cursor-default">
-                      Toyota Sienna (Coming Soon)
-                    </span>
-                  </li>
+            aria-label="Close menu"
+            className="text-foreground p-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Menu items */}
+        <div className="px-8 pt-8">
+          <ul className="space-y-7">
+            {/* Shop — expandable */}
+            <li>
+              <button
+                onClick={() => setShopExpanded((o) => !o)}
+                className="flex w-full items-center justify-between text-2xl font-bold text-white"
+              >
+                <span>Shop</span>
+                <span className="text-xl text-muted">
+                  {shopExpanded ? "−" : "+"}
+                </span>
+              </button>
+
+              {/* Sub-items */}
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  shopExpanded ? "max-h-60 opacity-100 mt-4" : "max-h-0 opacity-0"
+                }`}
+              >
+                <ul className="space-y-4 pl-4 border-l border-border">
+                  {shopLinks.map((link) =>
+                    link.comingSoon ? (
+                      <li key={link.label}>
+                        <span className="text-base text-muted/40 cursor-default">
+                          {link.label}{" "}
+                          <span className="text-sm italic">Coming Soon</span>
+                        </span>
+                      </li>
+                    ) : (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="text-base text-white/70 transition-colors hover:text-accent"
+                          onClick={closeMobile}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
+            </li>
 
-              {/* Standalone links */}
-              <ul className="space-y-3 border-t border-border pt-4">
-                {companyLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-foreground transition-colors hover:text-accent"
-                      onClick={closeMobile}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </>
-      )}
+            {/* Blog, About, Contact */}
+            {companyLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-2xl font-bold text-white transition-colors hover:text-accent"
+                  onClick={closeMobile}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 }

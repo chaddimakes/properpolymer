@@ -9,7 +9,10 @@
       "Bash(cd:*)",
       "Bash(claude config:*)",
       "Bash(tail:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(xargs grep:*)",
+      "Bash(xargs wc:*)",
+      "Bash(npm run:*)"
     ]
   }
 }

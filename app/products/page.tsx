@@ -1,5 +1,11 @@
-import { products } from "@/lib/products";
+import Link from "next/link";
+import { products, getProductsByVehicle } from "@/lib/products";
 import ProductCard from "../components/product-card";
+
+const vehicleLabels: Record<string, string> = {
+  tacoma: "Toyota Tacoma (3rd Gen)",
+  universal: "Universal",
+};
 
 export const metadata = {
   title: "Shop All Products",
@@ -16,7 +22,19 @@ export const metadata = {
   },
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ vehicle?: string }>;
+}) {
+  const { vehicle } = await searchParams;
+
+  const isFiltered = vehicle && vehicle in vehicleLabels;
+  const displayProducts = isFiltered
+    ? getProductsByVehicle(vehicle)
+    : products;
+  const heading = isFiltered ? vehicleLabels[vehicle] : "All Products";
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-12">
@@ -24,16 +42,24 @@ export default function ProductsPage() {
           STL Collection
         </p>
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
-          All Products
+          {heading}
         </h1>
         <p className="mt-3 max-w-xl text-muted">
           Precision-engineered STL files for Toyota Tacoma scale builds. Every
           file is print-tested and optimized for FDM.
         </p>
+        {isFiltered && (
+          <Link
+            href="/products"
+            className="mt-4 inline-block text-sm font-medium text-accent hover:underline"
+          >
+            &larr; View All Products
+          </Link>
+        )}
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
+        {displayProducts.map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}
       </div>

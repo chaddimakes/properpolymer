@@ -34,6 +34,7 @@ export interface Product {
   supports?: string;
   material?: string;
   requiredHardware?: string[];
+  vehicle?: string;
 }
 
 export const products: Product[] = [
@@ -63,6 +64,7 @@ export const products: Product[] = [
       "Tacoma_Raptor_Light_Brackets.stl",
       "Raptor_Light_Clip.stl",
     ],
+    vehicle: "tacoma",
   },
   {
     slug: "roof-rack-camp-light-mount",
@@ -93,6 +95,7 @@ export const products: Product[] = [
       "2x M6 Square Nuts",
       "2x M6 Washers",
     ],
+    vehicle: "universal",
   },
   {
     slug: "tacoma-midrange-speaker-mount",
@@ -116,6 +119,7 @@ export const products: Product[] = [
     material: "PETG or ABS",
     stlFiles: ["Tacoma_tweeter_adapter.stl"],
     supports: "None",
+    vehicle: "tacoma",
   },
   {
     slug: "tacoma-glove-box-organizer",
@@ -140,6 +144,7 @@ export const products: Product[] = [
     material: "PETG or ABS",
     stlFiles: ["Tacoma_Glove_Box_Shelf.stl"],
     supports: "None",
+    vehicle: "tacoma",
   },
   {
     slug: "tacoma-center-console-organizer",
@@ -163,6 +168,7 @@ export const products: Product[] = [
     material: "PETG or ABS",
     stlFiles: ["Tacoma_Center_Console_Organizer.stl"],
     supports: "None",
+    vehicle: "tacoma",
   },
   {
     slug: "tacoma-dc-power-panel",
@@ -231,6 +237,7 @@ export const products: Product[] = [
         ],
       },
     ],
+    vehicle: "tacoma",
   },
   {
     slug: "pelican-3310-els-bracket",
@@ -263,9 +270,14 @@ export const products: Product[] = [
       "1x 3/8-16 Bed Rail Nut (Toyota Tacoma)",
       '1x 3/8-16 x 0.75" Bolt',
     ],
+    vehicle: "universal",
   },
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
+}
+
+export function getProductsByVehicle(vehicle: string): Product[] {
+  return products.filter((p) => p.vehicle === vehicle);
 }

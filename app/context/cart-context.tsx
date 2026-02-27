@@ -2,7 +2,9 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
+  useMemo,
   useReducer,
   useEffect,
   useState,
@@ -135,23 +137,43 @@ export function CartProvider({ children }: { children: ReactNode }) {
     0,
   );
 
+  const addItem = useCallback(
+    (item: Omit<CartItem, "quantity">) =>
+      dispatch({ type: "ADD_ITEM", item: { ...item, quantity: 1 } }),
+    [],
+  );
+  const removeItem = useCallback(
+    (slug: string) => dispatch({ type: "REMOVE_ITEM", slug }),
+    [],
+  );
+  const updateQuantity = useCallback(
+    (slug: string, quantity: number) =>
+      dispatch({ type: "UPDATE_QUANTITY", slug, quantity }),
+    [],
+  );
+  const clearCart = useCallback(() => dispatch({ type: "CLEAR_CART" }), []);
+  const openDrawer = useCallback(() => setIsDrawerOpen(true), []);
+  const closeDrawer = useCallback(() => setIsDrawerOpen(false), []);
+
+  const value = useMemo<CartContextValue>(
+    () => ({
+      items: state.items,
+      addItem,
+      removeItem,
+      updateQuantity,
+      clearCart,
+      totalItems,
+      totalPrice,
+      isDrawerOpen,
+      openDrawer,
+      closeDrawer,
+    }),
+    [state.items, totalItems, totalPrice, isDrawerOpen,
+     addItem, removeItem, updateQuantity, clearCart, openDrawer, closeDrawer],
+  );
+
   return (
-    <CartContext.Provider
-      value={{
-        items: state.items,
-        addItem: (item) =>
-          dispatch({ type: "ADD_ITEM", item: { ...item, quantity: 1 } }),
-        removeItem: (slug) => dispatch({ type: "REMOVE_ITEM", slug }),
-        updateQuantity: (slug, quantity) =>
-          dispatch({ type: "UPDATE_QUANTITY", slug, quantity }),
-        clearCart: () => dispatch({ type: "CLEAR_CART" }),
-        totalItems,
-        totalPrice,
-        isDrawerOpen,
-        openDrawer: () => setIsDrawerOpen(true),
-        closeDrawer: () => setIsDrawerOpen(false),
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );

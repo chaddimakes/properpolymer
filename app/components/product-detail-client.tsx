@@ -95,6 +95,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
       variantName: effectiveVariantName,
       selectedFiles,
     });
+    openDrawer();
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   }

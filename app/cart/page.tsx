@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useCart } from "@/app/context/cart-context";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +10,7 @@ export default function CartPage() {
   const { items, removeItem, totalPrice, totalItems } =
     useCart();
   const router = useRouter();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -109,9 +111,33 @@ export default function CartPage() {
             <span>${totalPrice.toFixed(2)}</span>
           </div>
 
+          <p className="mb-2 text-[11px] text-muted/60">
+            Digital download only — no physical product will be shipped.
+          </p>
+          <label className="mb-4 flex cursor-pointer items-start gap-2.5">
+            <input
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded accent-[#ea580c]"
+            />
+            <span className="text-xs leading-relaxed text-muted">
+              I agree that all files purchased are for personal use only.
+              Redistribution, resale, or commercial use is strictly
+              prohibited.{" "}
+              <Link
+                href="/terms"
+                className="text-accent underline transition-colors hover:text-accent-hover"
+              >
+                Terms of Service
+              </Link>
+            </span>
+          </label>
+
           <button
             onClick={() => router.push("/checkout")}
-            className="w-full rounded-lg bg-accent py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+            disabled={!agreedToTerms}
+            className="w-full rounded-lg bg-accent py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
           >
             Proceed to Checkout
           </button>

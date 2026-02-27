@@ -4,7 +4,7 @@ import { useCart } from "@/app/context/cart-context";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 export default function CartDrawer() {
   const {
@@ -17,6 +17,7 @@ export default function CartDrawer() {
   } = useCart();
   const router = useRouter();
   const pathname = usePathname();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const close = useCallback(() => closeDrawer(), [closeDrawer]);
 
@@ -155,9 +156,28 @@ export default function CartDrawer() {
               <span>Total</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
-            <p className="mb-4 text-xs text-muted">
+            <p className="mb-3 text-xs text-muted">
               Taxes calculated at checkout
             </p>
+            <label className="mb-4 flex cursor-pointer items-start gap-2.5">
+              <input
+                type="checkbox"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="mt-0.5 h-4 w-4 shrink-0 rounded accent-[#ea580c]"
+              />
+              <span className="text-xs leading-relaxed text-muted">
+                I agree that all files purchased are for personal use only.
+                Redistribution, resale, or commercial use is strictly
+                prohibited.{" "}
+                <Link
+                  href="/terms"
+                  className="text-accent underline transition-colors hover:text-accent-hover"
+                >
+                  Terms of Service
+                </Link>
+              </span>
+            </label>
             <div className="flex gap-3">
               <Link
                 href="/cart"
@@ -171,7 +191,8 @@ export default function CartDrawer() {
                   close();
                   router.push("/checkout");
                 }}
-                className="flex-1 rounded-lg bg-accent py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+                disabled={!agreedToTerms}
+                className="flex-1 rounded-lg bg-accent py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Checkout
               </button>

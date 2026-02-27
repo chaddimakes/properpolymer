@@ -55,14 +55,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
             ),
           };
         }
-        return {
-          ...state,
-          items: state.items.map((i) =>
-            i.slug === action.item.slug
-              ? { ...i, quantity: i.quantity + 1 }
-              : i,
-          ),
-        };
+        // Same product with same configuration — do not add a duplicate
+        return state;
       }
       return {
         ...state,

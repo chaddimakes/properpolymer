@@ -132,19 +132,14 @@ export default function CartDrawer() {
                     </div>
                     <div className="mt-1 flex items-center justify-between">
                       <span className="text-sm font-bold text-white">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        ${item.price.toFixed(2)}
                       </span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-muted">
-                          Qty: {item.quantity}
-                        </span>
-                        <button
-                          onClick={() => removeItem(item.slug)}
-                          className="text-xs text-muted transition-colors hover:text-red-400"
-                        >
-                          Remove
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => removeItem(item.slug)}
+                        className="text-xs text-muted transition-colors hover:text-red-400"
+                      >
+                        Remove
+                      </button>
                     </div>
                   </div>
                 </li>

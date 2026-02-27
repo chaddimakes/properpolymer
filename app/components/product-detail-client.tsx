@@ -7,7 +7,7 @@ import type { Product } from "@/lib/products";
 import ImageGallery from "./image-gallery";
 
 export default function ProductDetailClient({ product }: { product: Product }) {
-  const { addItem, items } = useCart();
+  const { addItem, items, openDrawer } = useCart();
   const router = useRouter();
   const [added, setAdded] = useState(false);
   const [manualIndex, setManualIndex] = useState<number | null>(null);
@@ -17,8 +17,6 @@ export default function ProductDetailClient({ product }: { product: Product }) {
       (product.toggleOptions ?? []).map((opt) => [opt.key, opt.default]),
     ),
   );
-
-  const inCart = items.some((i) => i.slug === product.slug);
 
   // Resolve active toggle combination
   const currentCombination = product.toggleCombinations?.find((combo) =>
@@ -68,6 +66,12 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const effectiveVariantName = toggleVariantName ?? selectedVariant;
   const selectedFiles = currentCombination?.stlFiles;
 
+  const existingItem = items.find((i) => i.slug === product.slug);
+  const inCartWithSameConfig =
+    existingItem !== undefined &&
+    existingItem.variantName === effectiveVariantName &&
+    JSON.stringify(existingItem.selectedFiles) === JSON.stringify(selectedFiles);
+
   function handleToggle(key: string, value: boolean) {
     setToggles((prev) => ({ ...prev, [key]: value }));
     setManualIndex(null);
@@ -79,6 +83,10 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   }
 
   function handleAddToCart() {
+    if (inCartWithSameConfig) {
+      openDrawer();
+      return;
+    }
     addItem({
       slug: product.slug,
       name: product.name,
@@ -92,14 +100,16 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   }
 
   function handleBuyNow() {
-    addItem({
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      variantName: effectiveVariantName,
-      selectedFiles,
-    });
+    if (!inCartWithSameConfig) {
+      addItem({
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        variantName: effectiveVariantName,
+        selectedFiles,
+      });
+    }
     router.push("/checkout");
   }
 
@@ -191,7 +201,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             onClick={handleAddToCart}
             className="w-full rounded-lg bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
           >
-            {added ? "Added to Cart ✓" : inCart ? "In Cart — Add Another" : "Add to Cart"}
+            {added ? "Added to Cart ✓" : inCartWithSameConfig ? "Already in Cart" : "Add to Cart"}
           </button>
           <button
             onClick={handleBuyNow}

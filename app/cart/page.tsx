@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, totalPrice, totalItems } =
+  const { items, removeItem, totalPrice, totalItems } =
     useCart();
   const router = useRouter();
 
@@ -70,32 +70,11 @@ export default function CartPage() {
                     )}
                   </div>
                   <span className="shrink-0 font-bold text-foreground">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    ${item.price.toFixed(2)}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.slug, item.quantity - 1)
-                      }
-                      className="flex h-7 w-7 items-center justify-center rounded border border-border text-muted transition-colors hover:border-accent hover:text-accent"
-                    >
-                      −
-                    </button>
-                    <span className="w-6 text-center text-sm font-medium text-foreground">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(item.slug, item.quantity + 1)
-                      }
-                      className="flex h-7 w-7 items-center justify-center rounded border border-border text-muted transition-colors hover:border-accent hover:text-accent"
-                    >
-                      +
-                    </button>
-                  </div>
+                <div className="flex items-center justify-end">
                   <button
                     onClick={() => removeItem(item.slug)}
                     className="text-xs text-muted transition-colors hover:text-red-400"
@@ -117,13 +96,8 @@ export default function CartPage() {
           <div className="space-y-3 text-sm">
             {items.map((item) => (
               <div key={item.slug} className="flex justify-between text-muted">
-                <span>
-                  {item.name}
-                  {item.quantity > 1 && (
-                    <span className="ml-1 text-xs">×{item.quantity}</span>
-                  )}
-                </span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                <span>{item.name}</span>
+                <span>${item.price.toFixed(2)}</span>
               </div>
             ))}
           </div>

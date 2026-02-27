@@ -6,16 +6,23 @@ import { useState } from "react";
 import type { Product } from "@/lib/products";
 
 export default function AddToCartButton({ product }: { product: Product }) {
-  const { addItem, items } = useCart();
+  const { addItem, items, openDrawer } = useCart();
   const router = useRouter();
   const [added, setAdded] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<string | undefined>(
     product.variants?.[0]?.name,
   );
 
-  const inCart = items.some((i) => i.slug === product.slug);
+  const existingItem = items.find((i) => i.slug === product.slug);
+  const inCartWithSameVariant =
+    existingItem !== undefined &&
+    existingItem.variantName === selectedVariant;
 
   function handleAddToCart() {
+    if (inCartWithSameVariant) {
+      openDrawer();
+      return;
+    }
     addItem({
       slug: product.slug,
       name: product.name,
@@ -28,13 +35,15 @@ export default function AddToCartButton({ product }: { product: Product }) {
   }
 
   function handleBuyNow() {
-    addItem({
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      variantName: selectedVariant,
-    });
+    if (!inCartWithSameVariant) {
+      addItem({
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        variantName: selectedVariant,
+      });
+    }
     router.push("/checkout");
   }
 
@@ -72,7 +81,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
         onClick={handleAddToCart}
         className="w-full rounded-lg border border-accent px-7 py-3.5 text-sm font-semibold text-accent transition-colors hover:bg-accent/10"
       >
-        {added ? "Added to Cart ✓" : inCart ? "In Cart — Add Another" : "Add to Cart"}
+        {added ? "Added to Cart ✓" : inCartWithSameVariant ? "Already in Cart" : "Add to Cart"}
       </button>
     </div>
   );

@@ -111,7 +111,7 @@ export default function CartPage() {
             <span>${totalPrice.toFixed(2)}</span>
           </div>
 
-          <p className="mb-2 text-[11px] text-muted/60">
+          <p className="mb-2 text-xs text-muted">
             Digital download only — no physical product will be shipped.
           </p>
           <label className="mb-4 flex cursor-pointer items-start gap-2.5">
@@ -121,7 +121,7 @@ export default function CartPage() {
               onChange={(e) => setAgreedToTerms(e.target.checked)}
               className="mt-0.5 h-4 w-4 shrink-0 rounded accent-[#ea580c]"
             />
-            <span className="text-xs leading-relaxed text-muted">
+            <span className="text-sm leading-relaxed text-gray-300">
               I agree that all files purchased are for personal use only.
               Redistribution, resale, or commercial use is strictly
               prohibited.{" "}

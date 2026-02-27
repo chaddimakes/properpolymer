@@ -312,9 +312,13 @@ def _scrape_tacomaworld_forum(
         total_threads += page_thread_count
         pages_scraped += 1
 
-        # Stop if there's no "Next >" link in the pagination
-        next_link = soup.select_one(".PageNav a.text")
-        if not next_link or "Next" not in next_link.get_text():
+        # Stop if there's no "Next >" link in the pagination.
+        # select_one would grab "< Prev" on page 2+, so check all a.text links.
+        has_next = any(
+            "Next" in a.get_text()
+            for a in soup.select(".PageNav a.text")
+        )
+        if not has_next:
             break
 
         time.sleep(1)  # be polite to the server

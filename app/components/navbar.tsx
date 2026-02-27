@@ -147,53 +147,30 @@ export default function Navbar() {
             {megaOpen && (
               <div
                 ref={megaRef}
-                className="absolute left-1/2 top-full mt-4 w-[28rem] -translate-x-1/2 rounded-lg border border-border bg-surface p-6 shadow-xl"
+                className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
               >
-                <div className="grid grid-cols-2 gap-8">
-                  {/* Shop column */}
-                  <div>
-                    <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">
-                      Shop
-                    </h3>
-                    <ul className="space-y-2">
-                      {shopLinks.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            className="text-sm text-foreground transition-colors hover:text-accent"
-                            onClick={closeMega}
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                      <li>
-                        <span className="text-sm text-muted/50 cursor-default">
-                          Toyota Sienna (Coming Soon)
-                        </span>
+                <div className="w-56 rounded-lg border border-border bg-surface p-6 shadow-xl">
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">
+                    Shop
+                  </h3>
+                  <ul className="space-y-2">
+                    {shopLinks.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-foreground transition-colors hover:text-accent"
+                          onClick={closeMega}
+                        >
+                          {link.label}
+                        </Link>
                       </li>
-                    </ul>
-                  </div>
-
-                  {/* Company column */}
-                  <div>
-                    <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">
-                      Company
-                    </h3>
-                    <ul className="space-y-2">
-                      {companyLinks.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            className="text-sm text-foreground transition-colors hover:text-accent"
-                            onClick={closeMega}
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    ))}
+                    <li>
+                      <span className="text-sm text-muted/50 cursor-default">
+                        Toyota Sienna (Coming Soon)
+                      </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             )}
@@ -245,7 +222,7 @@ export default function Navbar() {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md md:hidden">
+        <div className="fixed inset-0 z-50 bg-[#0d0d0d] md:hidden">
           <div className="flex items-center justify-between px-3 py-3 sm:px-6 sm:py-4 border-b border-border">
             <Link
               href="/"
@@ -283,8 +260,8 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="px-6 py-8 grid grid-cols-1 gap-8 min-[400px]:grid-cols-2">
-            {/* Shop column */}
+          <div className="px-6 py-8 space-y-8">
+            {/* Shop section */}
             <div>
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-accent">
                 Shop
@@ -309,25 +286,20 @@ export default function Navbar() {
               </ul>
             </div>
 
-            {/* Company column */}
-            <div>
-              <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-accent">
-                Company
-              </h3>
-              <ul className="space-y-3">
-                {companyLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-base text-foreground transition-colors hover:text-accent"
-                      onClick={closeMobile}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Standalone links */}
+            <ul className="space-y-3 border-t border-border pt-6">
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-base text-foreground transition-colors hover:text-accent"
+                    onClick={closeMobile}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}

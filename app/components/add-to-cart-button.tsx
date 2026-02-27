@@ -30,6 +30,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
       image: product.image,
       variantName: selectedVariant,
     });
+    openDrawer();
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   }

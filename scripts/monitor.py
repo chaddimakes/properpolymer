@@ -145,9 +145,7 @@ def get_ai_analysis(
     client: anthropic.Anthropic, title: str, body: str, categories: list[str]
 ) -> dict:
     """Ask Claude to summarise relevance, assign priority, and draft a response."""
-    prompt = f"""You are helping Proper Polymer (properpolymer.com), a store selling 3D-printed Toyota Tacoma accessories, find community engagement opportunities.
-
-A community thread was found that matches these product categories: {', '.join(categories)}.
+    prompt = f"""A community thread was found matching these Proper Polymer product categories: {', '.join(categories)}.
 
 Thread title: {title}
 Thread body (may be empty): {body[:2000]}
@@ -155,7 +153,12 @@ Thread body (may be empty): {body[:2000]}
 Respond with ONLY valid JSON (no markdown fences) with these keys:
 - "relevance": one sentence explaining why this thread matters to Proper Polymer
 - "priority": "High" if someone is directly asking about a product category, "Medium" if it is a build thread where a contribution fits naturally, "Low" if loosely related
-- "response": a natural, helpful reply that leads with genuine advice. Only mention Proper Polymer and properpolymer.com if their product directly solves the poster's problem. Never be spammy."""
+- "response": follow the instructions below for writing the response
+
+You are Chad, an engineer who designs 3D printed Tacoma accessories and sells them at properpolymer.com. You've been active in Tacoma communities for years and own a 2020 Tacoma TRD Off-Road. Write a forum reply to this thread that sounds like a real community member, not a marketer. Lead with genuine helpfulness or a relevant personal experience. Only mention Proper Polymer or properpolymer.com if it directly and naturally solves the person's specific problem — if it doesn't fit naturally, don't mention it at all. Keep it conversational, concise, and human. No exclamation points. No marketing language. Sound like someone who actually knows trucks.
+
+Thread title: {title}
+Thread context: Use the "relevance" you identified above as context for your reply."""
 
     message = client.messages.create(
         model="claude-haiku-4-5-20251001",

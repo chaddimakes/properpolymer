@@ -173,9 +173,9 @@ export const products: Product[] = [
     name: "Tacoma DC Power Panel",
     price: 30,
     description:
-      "Print-ready STL that replaces the interior door panel on the 2020 Toyota Tacoma, purpose-built to mount the Blue Sea Systems 4365 Accessory Panel, Blue Sea Mini OLED Meter, and an optional PWM dimmer switch for controlling bed lights. A clean, factory-look solution for adding 12V power to your truck bed — run a fridge, USB chargers, or any 12V accessories. Recommended materials: PETG, ABS, or ASA.",
+      'Print-ready STL that replaces the interior bed door panel on the 2020 Toyota Tacoma, purpose-built to mount the <a href="https://www.amazon.com/Blue-Sea-Systems-4365-BSS-Water-Resistant/dp/B07PSGW8R9" target="_blank">Blue Sea Systems 4365, 4366, or 4367 Accessory Panel</a> and <a href="https://www.amazon.com/Blue-Sea-Systems-Mini-Voltmeter/dp/B01CZ2ZXKM" target="_blank">Blue Sea Mini OLED Voltmeter</a>. Optional PWM dimmer switch for controlling bed lights: <a href="https://www.amazon.com/dp/B085TK13SH" target="_blank">Mini LED Dimmer Knob</a>. A clean, factory-look solution for adding 12V power to your truck bed — run a fridge, USB chargers, or any 12V accessories. Recommended materials: PETG, ABS, or ASA.',
     longDescription:
-      "Print-ready STL that replaces the interior door panel on the 2020 Toyota Tacoma, purpose-built to mount the Blue Sea Systems 4365 Accessory Panel, Blue Sea Mini OLED Meter, and an optional PWM dimmer switch for controlling bed lights. A clean, factory-look solution for adding 12V power to your truck bed — run a fridge, USB chargers, or any 12V accessories. Recommended materials: PETG, ABS, or ASA.",
+      'Print-ready STL that replaces the interior bed door panel on the 2020 Toyota Tacoma, purpose-built to mount the <a href="https://www.amazon.com/Blue-Sea-Systems-4365-BSS-Water-Resistant/dp/B07PSGW8R9" target="_blank">Blue Sea Systems 4365, 4366, or 4367 Accessory Panel</a> and <a href="https://www.amazon.com/Blue-Sea-Systems-Mini-Voltmeter/dp/B01CZ2ZXKM" target="_blank">Blue Sea Mini OLED Voltmeter</a>. Optional PWM dimmer switch for controlling bed lights: <a href="https://www.amazon.com/dp/B085TK13SH" target="_blank">Mini LED Dimmer Knob</a>. A clean, factory-look solution for adding 12V power to your truck bed — run a fridge, USB chargers, or any 12V accessories. Recommended materials: PETG, ABS, or ASA.',
     image: "/products/Tacoma_DC_Power_Panel_01.jpg",
     images: [
       "/products/Tacoma_DC_Power_Panel_01.jpg",
@@ -193,6 +193,12 @@ export const products: Product[] = [
     ],
     material: "PETG, ABS, or ASA",
     supports: "None",
+    requiredHardware: [
+      '1x 1/4-20 x 0.75" Hex Bolt',
+      "1x 1/4-20 Square Nut ⚠️ Embedded during print — pause print midway to insert into the Knob file",
+      "4x M4 x 12mm Hex Nuts",
+      "4x M4 x 12mm Bolts",
+    ],
     toggleOptions: [
       { key: "dimmer", label: "Dimmer", default: false },
       { key: "gasket", label: "Gasket", default: false },

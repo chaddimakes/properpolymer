@@ -212,7 +212,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         </div>
 
         {/* Description */}
-        <p className="mb-8 leading-relaxed text-muted">{product.longDescription}</p>
+        <p className="mb-8 leading-relaxed text-muted [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-accent-hover" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
 
         {/* Required Hardware */}
         {product.requiredHardware && product.requiredHardware.length > 0 && (
@@ -221,15 +221,27 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               Required Hardware
             </h2>
             <ul className="space-y-2">
-              {product.requiredHardware.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-sm text-muted"
-                >
-                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                  {item}
-                </li>
-              ))}
+              {product.requiredHardware.map((item) => {
+                const warningIndex = item.indexOf("⚠️");
+                return (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm text-muted"
+                  >
+                    <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    {warningIndex >= 0 ? (
+                      <>
+                        {item.slice(0, warningIndex)}
+                        <span className="font-medium text-orange-400">
+                          {item.slice(warningIndex)}
+                        </span>
+                      </>
+                    ) : (
+                      item
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

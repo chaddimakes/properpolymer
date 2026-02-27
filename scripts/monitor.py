@@ -228,14 +228,15 @@ def search_reddit(seen: set[str]) -> list[dict]:
 
 def _scrape_tacomaworld_page(
     soup: BeautifulSoup, forum_name: str, debug: bool, page: int
-) -> list[dict]:
-    """Parse threads from a single page of a TacomaWorld forum."""
+) -> tuple[list[dict], int]:
+    """Parse threads from a single page of a TacomaWorld forum.
+
+    Returns (leads, total_threads_on_page).
+    """
     leads = []
 
     # XenForo 1.x uses .discussionListItem (NOT .structItem--thread)
     threads = soup.select(".discussionListItem")
-    if debug:
-        print(f"  [{forum_name}] page {page}: {len(threads)} threads")
 
     for thread in threads:
         # Title lives in h3.title > a.PreviewTooltip
@@ -281,7 +282,7 @@ def _scrape_tacomaworld_page(
             }
         )
 
-    return leads
+    return leads, len(threads)
 
 
 MAX_TW_PAGES = 50
@@ -295,6 +296,8 @@ def _scrape_tacomaworld_forum(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     }
     leads = []
+    total_threads = 0
+    pages_scraped = 0
 
     for page in range(1, MAX_TW_PAGES + 1):
         page_url = url if page == 1 else f"{url}page-{page}"
@@ -302,8 +305,12 @@ def _scrape_tacomaworld_forum(
         resp.raise_for_status()
 
         soup = BeautifulSoup(resp.text, "html.parser")
-        page_leads = _scrape_tacomaworld_page(soup, forum_name, debug, page)
+        page_leads, page_thread_count = _scrape_tacomaworld_page(
+            soup, forum_name, debug, page
+        )
         leads.extend(page_leads)
+        total_threads += page_thread_count
+        pages_scraped += 1
 
         # Stop if there's no "Next >" link in the pagination
         next_link = soup.select_one(".PageNav a.text")
@@ -312,8 +319,10 @@ def _scrape_tacomaworld_forum(
 
         time.sleep(1)  # be polite to the server
 
-    if debug:
-        print(f"  [{forum_name}] total: {len(leads)} leads across {page} pages")
+    print(
+        f"  [{forum_name}] {pages_scraped} pages scraped, "
+        f"{total_threads} threads examined, {len(leads)} keyword matches"
+    )
 
     return leads
 

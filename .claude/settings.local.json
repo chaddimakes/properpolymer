@@ -17,7 +17,8 @@
       "Bash(python:*)",
       "Bash(where python:*)",
       "Bash(pip install:*)",
-      "Bash(xargs cat:*)"
+      "Bash(xargs cat:*)",
+      "Bash(node:*)"
     ]
   }
 }

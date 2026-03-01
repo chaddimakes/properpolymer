@@ -14,6 +14,14 @@ export const metadata: Metadata = {
       "The side business was always the plan. The website was always the excuse. Claude helped me run out of excuses.",
     url: "/blog/how-i-built-proper-polymer",
     type: "article",
+    images: [
+      {
+        url: "https://www.properpolymer.com/blog-og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "I Built an E-Commerce Website with Zero Coding Experience",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -21,6 +29,7 @@ export const metadata: Metadata = {
       "I Built an E-Commerce Website with Zero Coding Experience — Here's How",
     description:
       "The side business was always the plan. The website was always the excuse. Claude helped me run out of excuses.",
+    images: ["https://www.properpolymer.com/blog-og-image.jpg"],
   },
 };
 
@@ -59,10 +68,18 @@ export default function HowIBuiltProperPolymer() {
         </h1>
 
         {/* Subtitle */}
-        <p className="mb-14 text-lg text-muted sm:text-xl sm:leading-relaxed">
+        <p className="mb-4 text-lg text-muted sm:text-xl sm:leading-relaxed">
           The side business was always the plan. The website was always the
           excuse. Claude helped me run out of excuses.
         </p>
+
+        {/* Publication date */}
+        <time
+          dateTime="2026-03-01"
+          className="mb-14 block text-sm text-[#666]"
+        >
+          March 1, 2026
+        </time>
 
         {/* Article body */}
         <div className="space-y-10 text-[15px] leading-[1.8] text-[#b0b0b0] sm:text-base sm:leading-[1.85]">

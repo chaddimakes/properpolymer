@@ -247,6 +247,18 @@ export default function ProductDetailClient({ product }: { product: Product }) {
           </div>
         )}
 
+        {/* Installation Notes */}
+        {product.installationNotes && (
+          <div className="mb-8">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+              Installation Notes
+            </h2>
+            <p className="text-sm leading-relaxed text-muted">
+              {product.installationNotes}
+            </p>
+          </div>
+        )}
+
         {/* Features */}
         <div className="mb-8">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">

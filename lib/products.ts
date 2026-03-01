@@ -35,6 +35,7 @@ export interface Product {
   supports?: string;
   material?: string;
   requiredHardware?: string[];
+  installationNotes?: string;
   vehicle?: string;
 }
 
@@ -71,6 +72,8 @@ export const products: Product[] = [
       "4x M4 x 12mm Hex Nuts",
       "4x M4 x 12mm Bolts",
     ],
+    installationNotes:
+      "Apply red Loctite to the bolt connecting the knob to the latch before final assembly. This prevents the knob and latch from spinning and locks them securely in place.",
     toggleOptions: [
       { key: "dimmer", label: "Dimmer", default: false },
       { key: "gasket", label: "Gasket", default: false },

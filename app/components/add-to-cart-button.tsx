@@ -4,6 +4,7 @@ import { useCart, cartKey } from "@/app/context/cart-context";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Product } from "@/lib/products";
+import { trackAddToCart } from "@/lib/analytics";
 
 export default function AddToCartButton({ product }: { product: Product }) {
   const { addItem, items, openDrawer } = useCart();
@@ -22,13 +23,15 @@ export default function AddToCartButton({ product }: { product: Product }) {
       openDrawer();
       return;
     }
-    addItem({
+    const item = {
       slug: product.slug,
       name: product.name,
       price: product.price,
       image: product.image,
       variantName: selectedVariant,
-    });
+    };
+    addItem(item);
+    trackAddToCart({ ...item, quantity: 1 });
     openDrawer();
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -36,13 +39,15 @@ export default function AddToCartButton({ product }: { product: Product }) {
 
   function handleBuyNow() {
     if (!inCartWithSameVariant) {
-      addItem({
+      const item = {
         slug: product.slug,
         name: product.name,
         price: product.price,
         image: product.image,
         variantName: selectedVariant,
-      });
+      };
+      addItem(item);
+      trackAddToCart({ ...item, quantity: 1 });
     }
     router.push("/checkout");
   }

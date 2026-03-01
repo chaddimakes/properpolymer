@@ -3,15 +3,17 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/app/context/cart-context";
+import { trackBeginCheckout } from "@/lib/analytics";
 import Link from "next/link";
 
 export default function CheckoutPage() {
-  const { items } = useCart();
+  const { items, totalPrice } = useCart();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
   const startCheckout = useCallback(async () => {
     if (items.length === 0) return;
+    trackBeginCheckout(items, totalPrice);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -26,7 +28,7 @@ export default function CheckoutPage() {
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
-  }, [items, router]);
+  }, [items, totalPrice, router]);
 
   useEffect(() => {
     startCheckout();

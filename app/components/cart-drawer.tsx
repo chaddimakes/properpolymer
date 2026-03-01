@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useCallback, useState } from "react";
+import { trackRemoveFromCart, trackBeginCheckout } from "@/lib/analytics";
 
 export default function CartDrawer() {
   const {
@@ -140,7 +141,10 @@ export default function CartDrawer() {
                         ${item.price.toFixed(2)}
                       </span>
                       <button
-                        onClick={() => removeItem(cartKey(item))}
+                        onClick={() => {
+                          trackRemoveFromCart(item);
+                          removeItem(cartKey(item));
+                        }}
                         className="text-xs text-muted transition-colors hover:text-red-400"
                       >
                         Remove
@@ -195,6 +199,7 @@ export default function CartDrawer() {
               </Link>
               <button
                 onClick={() => {
+                  trackBeginCheckout(items, totalPrice);
                   close();
                   router.push("/checkout");
                 }}

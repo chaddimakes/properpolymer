@@ -5,6 +5,7 @@ import { useCart, cartKey } from "@/app/context/cart-context";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { trackRemoveFromCart, trackBeginCheckout } from "@/lib/analytics";
 
 export default function CartPage() {
   const { items, removeItem, totalPrice, totalItems } =
@@ -78,7 +79,10 @@ export default function CartPage() {
 
                 <div className="flex items-center justify-end">
                   <button
-                    onClick={() => removeItem(cartKey(item))}
+                    onClick={() => {
+                      trackRemoveFromCart(item);
+                      removeItem(cartKey(item));
+                    }}
                     className="text-xs text-muted transition-colors hover:text-red-400"
                   >
                     Remove
@@ -135,7 +139,10 @@ export default function CartPage() {
           </label>
 
           <button
-            onClick={() => router.push("/checkout")}
+            onClick={() => {
+              trackBeginCheckout(items, totalPrice);
+              router.push("/checkout");
+            }}
             disabled={!agreedToTerms}
             className="w-full rounded-lg bg-accent py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-40"
           >

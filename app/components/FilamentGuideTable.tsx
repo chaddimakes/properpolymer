@@ -63,11 +63,6 @@ export default function FilamentGuideTable() {
                         style={{ backgroundColor: f.color }}
                       />
                       {f.name}
-                      {f.stock && (
-                        <span className="ml-1 rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
-                          In Stock
-                        </span>
-                      )}
                     </span>
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap text-[#e5e5e5]">
@@ -85,14 +80,15 @@ export default function FilamentGuideTable() {
                   <td className="px-4 py-3 max-w-xs">
                     <div className="flex flex-col gap-1">
                       <span className="flex items-center gap-2">
-                        {f.badge && (
+                        {f.badge ? (
                           <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
                             {f.badge}
                           </span>
+                        ) : (
+                          <span className="text-accent font-medium">
+                            {f.ppUse}
+                          </span>
                         )}
-                        <span className="text-accent font-medium">
-                          {f.ppUse}
-                        </span>
                       </span>
                       <span className="text-[#737373] text-xs">
                         {f.ppNote}
@@ -127,11 +123,6 @@ export default function FilamentGuideTable() {
                 <span className="text-base font-semibold text-white">
                   {f.name}
                 </span>
-                {f.stock && (
-                  <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
-                    In Stock
-                  </span>
-                )}
               </div>
 
               {/* Stats row */}
@@ -156,14 +147,15 @@ export default function FilamentGuideTable() {
               {/* PP usage */}
               <div className="border-t border-[#2a2a2a] pt-3">
                 <span className="flex items-center gap-2">
-                  {f.badge && (
+                  {f.badge ? (
                     <span className="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
                       {f.badge}
                     </span>
+                  ) : (
+                    <span className="text-sm font-medium text-accent">
+                      {f.ppUse}
+                    </span>
                   )}
-                  <span className="text-sm font-medium text-accent">
-                    {f.ppUse}
-                  </span>
                 </span>
                 <p className="mt-1 text-xs text-[#737373]">{f.ppNote}</p>
               </div>

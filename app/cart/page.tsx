@@ -62,7 +62,7 @@ export default function CartPage() {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <Link
-                      href={`/products/${item.slug}`}
+                      href={item.variantName ? `/products/${item.slug}?variant=${encodeURIComponent(item.variantName)}` : `/products/${item.slug}`}
                       className="font-semibold text-foreground transition-colors hover:text-accent"
                     >
                       {item.name}

@@ -123,7 +123,7 @@ export default function CartDrawer() {
                   <div className="flex min-w-0 flex-1 flex-col justify-between">
                     <div>
                       <Link
-                        href={`/products/${item.slug}`}
+                        href={item.variantName ? `/products/${item.slug}?variant=${encodeURIComponent(item.variantName)}` : `/products/${item.slug}`}
                         onClick={close}
                         className="block truncate text-sm font-semibold text-white transition-colors hover:text-accent"
                       >

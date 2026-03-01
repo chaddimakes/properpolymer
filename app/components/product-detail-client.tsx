@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart, cartKey } from "@/app/context/cart-context";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { Product } from "@/lib/products";
 import ImageGallery from "./image-gallery";
 
@@ -12,11 +12,39 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
   const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<string | undefined>(undefined);
+  const searchParams = useSearchParams();
   const [toggles, setToggles] = useState<Record<string, boolean>>(
     Object.fromEntries(
       (product.toggleOptions ?? []).map((opt) => [opt.key, opt.default]),
     ),
   );
+
+  // Pre-select variant from URL query param (e.g. ?variant=Bolt+Mount)
+  useEffect(() => {
+    const variantParam = searchParams.get("variant");
+    if (!variantParam) return;
+
+    // Named variants
+    if (product.variants?.some((v) => v.name === variantParam)) {
+      setSelectedVariant(variantParam);
+      return;
+    }
+
+    // Toggle combination (e.g. "With Dimmer, No Gasket")
+    if (product.toggleOptions && product.toggleOptions.length > 0) {
+      const parts = variantParam.split(", ");
+      const newToggles: Record<string, boolean> = {};
+      for (const part of parts) {
+        for (const opt of product.toggleOptions) {
+          if (part === `With ${opt.label}`) newToggles[opt.key] = true;
+          else if (part === `No ${opt.label}`) newToggles[opt.key] = false;
+        }
+      }
+      if (Object.keys(newToggles).length > 0) {
+        setToggles((prev) => ({ ...prev, ...newToggles }));
+      }
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Resolve active toggle combination
   const currentCombination = product.toggleCombinations?.find((combo) =>

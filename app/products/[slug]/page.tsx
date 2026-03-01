@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { products, getProductBySlug } from "@/lib/products";
@@ -86,7 +87,9 @@ export default async function ProductPage({
         <span className="text-foreground">{product.name}</span>
       </nav>
 
-      <ProductDetailClient product={product} />
+      <Suspense>
+        <ProductDetailClient product={product} />
+      </Suspense>
     </div>
   );
 }

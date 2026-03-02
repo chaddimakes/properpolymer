@@ -73,13 +73,19 @@ export default function HowIBuiltProperPolymer() {
           excuse. Claude helped me run out of excuses.
         </p>
 
-        {/* Publication date */}
-        <time
-          dateTime="2026-03-01"
-          className="mb-14 block text-sm text-[#666]"
-        >
-          March 1, 2026
-        </time>
+        {/* Publication date & byline */}
+        <div className="mb-14 text-sm text-[#666]">
+          <time dateTime="2026-03-01">March 1, 2026</time>
+          {" · "}
+          <a
+            href="https://www.linkedin.com/in/chadsittig"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-accent"
+          >
+            By Chad Sittig
+          </a>
+        </div>
 
         {/* Article body */}
         <div className="space-y-10 text-[15px] leading-[1.8] text-[#b0b0b0] sm:text-base sm:leading-[1.85]">

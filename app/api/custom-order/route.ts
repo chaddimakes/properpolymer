@@ -71,13 +71,19 @@ export async function POST(req: NextRequest) {
     }
 
     // Send payment link to customer via Brevo SMTP
+    const smtpUser = process.env.BREVO_SMTP_USER;
+    const smtpKey = process.env.BREVO_SMTP_KEY;
+    const maskedKey = smtpKey ? smtpKey.slice(0, 4) + "..." : "MISSING";
+    console.log(`[custom-order] SMTP auth user: ${smtpUser || "MISSING"}`);
+    console.log(`[custom-order] SMTP auth key: ${maskedKey}`);
+
     const transporter = nodemailer.createTransport({
       host: "smtp-relay.brevo.com",
       port: 587,
       secure: false,
       auth: {
-        user: process.env.BREVO_SMTP_USER,
-        pass: process.env.BREVO_SMTP_KEY,
+        user: smtpUser,
+        pass: smtpKey,
       },
     });
 

@@ -18,7 +18,13 @@
       "Bash(where python:*)",
       "Bash(pip install:*)",
       "Bash(xargs cat:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "WebFetch(domain:www.properpolymer.com)",
+      "Bash(curl:*)",
+      "WebFetch(domain:opengraph.xyz)",
+      "Bash(npx next:*)",
+      "Bash(gh workflow:*)",
+      "Bash(where gh:*)"
     ]
   }
 }

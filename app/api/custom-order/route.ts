@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       mode: "payment",
       customer_email: customerEmail,
       shipping_address_collection: { allowed_countries: ["US"] },
-      success_url: `${origin}/custom-order?success=1`,
+      success_url: `${origin}/custom-order/success`,
       cancel_url: origin,
       metadata: {
         customerName,

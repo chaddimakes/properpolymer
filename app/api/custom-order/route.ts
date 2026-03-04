@@ -93,38 +93,48 @@ export async function POST(req: NextRequest) {
     const formattedPrice = (amount / 100).toFixed(2);
 
     const html = `
-    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;padding:40px 16px;color:#1a1a1a;">
-      <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;color:#1a1a1a;">
+      <tr><td style="padding:40px 16px;">
+        <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" align="center" style="max-width:560px;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
-        <div style="background:#111111;padding:28px 32px;">
-          <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
-          <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
-        </div>
+          <tr><td bgcolor="#111111" style="background:#111111;padding:28px 32px;">
+            <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
+            <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
+          </td></tr>
 
-        <div style="padding:32px;">
-          <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Custom Order</p>
-          <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Hi ${customerName},</h1>
-          <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your custom order is ready for payment. Click the link below to complete checkout.</p>
+          <tr><td style="padding:32px;">
+            <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Custom Order</p>
+            <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Hi ${customerName},</h1>
+            <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your custom order is ready for payment. Click the link below to complete checkout.</p>
 
-          <div style="margin-bottom:24px;padding:16px 20px;border:1px solid #e8e8e8;border-radius:6px;background:#fafafa;">
-            <p style="margin:0 0 4px;font-weight:600;color:#111111;font-size:14px;">${description}</p>${notes ? `\n            <p style="margin:6px 0 0;color:#888888;font-size:13px;line-height:1.5;">${notes}</p>` : ""}
-            <p style="margin:8px 0 0;color:#666666;font-size:14px;">Total: <strong style="color:#111111;">$${formattedPrice}</strong></p>
-          </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+              <tr><td style="padding:16px 20px;border:1px solid #e8e8e8;border-radius:6px;background:#fafafa;" bgcolor="#fafafa">
+                <p style="margin:0 0 4px;font-weight:600;color:#111111;font-size:14px;">${description}</p>${notes ? `\n                <p style="margin:6px 0 0;color:#888888;font-size:13px;line-height:1.5;">${notes}</p>` : ""}
+                <p style="margin:8px 0 0;color:#666666;font-size:14px;">Total: <strong style="color:#111111;">$${formattedPrice}</strong></p>
+              </td></tr>
+            </table>
 
-          <a href="${session.url}" style="display:inline-block;background:#e07b39;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:6px;">Complete Payment</a>
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${session.url}" style="height:42px;v-text-anchor:middle;width:180px;" arcsize="14%" fillcolor="#e07b39" strokecolor="#e07b39" strokeweight="0">
+              <w:anchorlock/>
+              <center style="color:#ffffff;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:600;">Complete Payment</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!--><a href="${session.url}" style="display:inline-block;background:#e07b39;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 28px;border-radius:6px;">Complete Payment</a><!--<![endif]-->
 
-          <p style="margin:24px 0 0;font-size:12px;color:#999999;line-height:1.5;">If the button doesn't work, copy and paste this link into your browser:<br/>
-          <a href="${session.url}" style="color:#e07b39;font-size:12px;word-break:break-all;text-decoration:none;">${session.url}</a></p>
-        </div>
+            <p style="margin:24px 0 0;font-size:12px;color:#999999;line-height:1.5;">If the button doesn't work, copy and paste this link into your browser:<br/>
+            <a href="${session.url}" style="color:#e07b39;font-size:12px;word-break:break-all;text-decoration:none;">${session.url}</a></p>
+          </td></tr>
 
-        <div style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
-          <p style="margin:0;font-size:12px;color:#999999;">
-            Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
-          </p>
-        </div>
+          <tr><td bgcolor="#f9f9f9" style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
+            <p style="margin:0;font-size:12px;color:#999999;">
+              Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
+            </p>
+          </td></tr>
 
-      </div>
-    </div>`;
+        </table>
+      </td></tr>
+    </table>`;
 
     console.log(`[custom-order] Verifying SMTP transporter...`);
     await transporter.verify();

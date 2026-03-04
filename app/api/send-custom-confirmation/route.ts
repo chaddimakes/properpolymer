@@ -33,41 +33,47 @@ export async function POST(req: NextRequest) {
   const formattedPrice = (amountTotal / 100).toFixed(2);
 
   const html = `
-  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;padding:40px 16px;color:#1a1a1a;">
-    <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;color:#1a1a1a;">
+    <tr><td style="padding:40px 16px;">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" align="center" style="max-width:560px;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
-      <div style="background:#111111;padding:28px 32px;">
-        <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
-        <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
-      </div>
+        <tr><td bgcolor="#111111" style="background:#111111;padding:28px 32px;">
+          <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
+          <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
+        </td></tr>
 
-      <div style="padding:32px;">
-        <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Payment Confirmed</p>
-        <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Thanks for your order, ${customerName}!</h1>
-        <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your custom order payment has been received. We'll get started on your order and reach out if we have any questions.</p>
+        <tr><td style="padding:32px;">
+          <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Payment Confirmed</p>
+          <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Thanks for your order, ${customerName}!</h1>
+          <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your custom order payment has been received. We'll get started on your order and reach out if we have any questions.</p>
 
-        <div style="margin-bottom:24px;padding:16px 20px;border:1px solid #e8e8e8;border-radius:6px;background:#fafafa;">
-          <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999999;">Order Details</p>
-          <p style="margin:8px 0 0;font-weight:600;color:#111111;font-size:14px;">${description}</p>
-          <p style="margin:8px 0 0;color:#666666;font-size:14px;">Total paid: <strong style="color:#111111;">&#36;${formattedPrice}</strong></p>
-        </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+            <tr><td style="padding:16px 20px;border:1px solid #e8e8e8;border-radius:6px;background:#fafafa;" bgcolor="#fafafa">
+              <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999999;">Order Details</p>
+              <p style="margin:8px 0 0;font-weight:600;color:#111111;font-size:14px;">${description}</p>
+              <p style="margin:8px 0 0;color:#666666;font-size:14px;">Total paid: <strong style="color:#111111;">&#36;${formattedPrice}</strong></p>
+            </td></tr>
+          </table>
 
-        <hr style="border:none;border-top:1px solid #eeeeee;margin:0 0 24px;" />
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+            <tr><td style="border-top:1px solid #eeeeee;font-size:0;line-height:0;" height="24">&nbsp;</td></tr>
+          </table>
 
-        <p style="margin:0;font-size:13px;color:#666666;line-height:1.5;">
-          If you have any questions about your order, just reply to this email or reach out at
-          <a href="mailto:hello@properpolymer.com" style="color:#e07b39;text-decoration:none;">hello@properpolymer.com</a>.
-        </p>
-      </div>
+          <p style="margin:0;font-size:13px;color:#666666;line-height:1.5;">
+            If you have any questions about your order, just reply to this email or reach out at
+            <a href="mailto:hello@properpolymer.com" style="color:#e07b39;text-decoration:none;">hello@properpolymer.com</a>.
+          </p>
+        </td></tr>
 
-      <div style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
-        <p style="margin:0;font-size:12px;color:#999999;">
-          Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
-        </p>
-      </div>
+        <tr><td bgcolor="#f9f9f9" style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
+          <p style="margin:0;font-size:12px;color:#999999;">
+            Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
+          </p>
+        </td></tr>
 
-    </div>
-  </div>`;
+      </table>
+    </td></tr>
+  </table>`;
 
   const transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",

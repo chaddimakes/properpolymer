@@ -62,10 +62,12 @@ export async function POST(req: NextRequest) {
       ? `${product.name} <span style="font-weight:400;color:#888888;">— ${variantName}</span>`
       : product.name;
     return `
-      <div style="margin-bottom:12px;padding:16px 20px;border:1px solid #e8e8e8;border-radius:6px;background:#fafafa;">
-        <p style="margin:0 0 10px;font-weight:600;color:#111111;font-size:14px;">${displayName}</p>
-        <ul style="margin:0;padding-left:18px;">${fileLinks}</ul>
-      </div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">
+        <tr><td style="padding:16px 20px;border:1px solid #e8e8e8;border-radius:6px;background:#fafafa;" bgcolor="#fafafa">
+          <p style="margin:0 0 10px;font-weight:600;color:#111111;font-size:14px;">${displayName}</p>
+          <ul style="margin:0;padding-left:18px;">${fileLinks}</ul>
+        </td></tr>
+      </table>
     `;
   })
   .join("");
@@ -76,44 +78,50 @@ export async function POST(req: NextRequest) {
   );
 
   const html = `
-  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;padding:40px 16px;color:#1a1a1a;">
-    <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f4f4f4;color:#1a1a1a;">
+    <tr><td style="padding:40px 16px;">
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" align="center" style="max-width:560px;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
-      <div style="background:#111111;padding:28px 32px;">
-        <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
-        <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
-      </div>
+        <tr><td bgcolor="#111111" style="background:#111111;padding:28px 32px;">
+          <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">Proper Polymer</p>
+          <p style="margin:4px 0 0;font-size:12px;color:#888888;letter-spacing:0.08em;text-transform:uppercase;">Precision Engineered. Trail Tested.</p>
+        </td></tr>
 
-      <div style="padding:32px;">
-        <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Payment Confirmed</p>
-        <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Thanks for your order!</h1>
-        <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your STL files are ready to download. Click any file link below to download directly.</p>
+        <tr><td style="padding:32px;">
+          <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e07b39;">Payment Confirmed</p>
+          <h1 style="margin:4px 0 8px;font-size:24px;font-weight:700;color:#111111;">Thanks for your order!</h1>
+          <p style="margin:0 0 28px;color:#666666;font-size:14px;line-height:1.5;">Your STL files are ready to download. Click any file link below to download directly.</p>
 
-        <p style="margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999999;">Your Downloads</p>
+          <p style="margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999999;">Your Downloads</p>
 
-        ${productsHtml}
+          ${productsHtml}
 
-        <p style="margin:20px 0 28px;font-size:13px;color:#666666;">
-          Order total: <strong style="color:#111111;">&#36;${orderTotal.toFixed(2)}</strong>
-        </p>
+          <p style="margin:20px 0 28px;font-size:13px;color:#666666;">
+            Order total: <strong style="color:#111111;">&#36;${orderTotal.toFixed(2)}</strong>
+          </p>
 
-        <hr style="border:none;border-top:1px solid #eeeeee;margin:0 0 24px;" />
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+            <tr><td style="border-top:1px solid #eeeeee;font-size:0;line-height:0;" height="24">&nbsp;</td></tr>
+          </table>
 
-        <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-left:3px solid #e07b39;border-radius:4px;padding:16px 20px;margin-bottom:8px;">
-          <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#111111;">Save your order page</p>
-          <p style="margin:0 0 10px;font-size:13px;color:#666666;line-height:1.5;">Bookmark this link to re-download your files any time — it never expires:</p>
-          <a href="${successUrl}" style="color:#e07b39;font-size:12px;word-break:break-all;text-decoration:none;">${successUrl}</a>
-        </div>
-      </div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;">
+            <tr><td style="background:#f9f9f9;border:1px solid #e8e8e8;border-left:3px solid #e07b39;border-radius:4px;padding:16px 20px;" bgcolor="#f9f9f9">
+              <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#111111;">Save your order page</p>
+              <p style="margin:0 0 10px;font-size:13px;color:#666666;line-height:1.5;">Bookmark this link to re-download your files any time — it never expires:</p>
+              <a href="${successUrl}" style="color:#e07b39;font-size:12px;word-break:break-all;text-decoration:none;">${successUrl}</a>
+            </td></tr>
+          </table>
+        </td></tr>
 
-      <div style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
-        <p style="margin:0;font-size:12px;color:#999999;">
-          Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
-        </p>
-      </div>
+        <tr><td bgcolor="#f9f9f9" style="background:#f9f9f9;border-top:1px solid #eeeeee;padding:16px 32px;">
+          <p style="margin:0;font-size:12px;color:#999999;">
+            Proper Polymer &bull; <a href="mailto:hello@properpolymer.com" style="color:#999999;text-decoration:none;">hello@properpolymer.com</a>
+          </p>
+        </td></tr>
 
-    </div>
-  </div>
+      </table>
+    </td></tr>
+  </table>
 `;
 
   const transporter = nodemailer.createTransport({

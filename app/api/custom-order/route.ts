@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: `Custom Order — ${description}`,
+              name: description,
               description: notes || undefined,
             },
             unit_amount: amount,
@@ -70,12 +70,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Send payment link to customer
+    // Send payment link to customer via Brevo SMTP
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.CONTACT_EMAIL_USER,
-        pass: process.env.CONTACT_EMAIL_PASS,
+        user: process.env.BREVO_SMTP_USER,
+        pass: process.env.BREVO_SMTP_KEY,
       },
     });
 
@@ -123,8 +125,7 @@ export async function POST(req: NextRequest) {
     console.log(`[custom-order] Sending payment link to ${customerEmail}...`);
 
     const info = await transporter.sendMail({
-      from: `"Proper Polymer" <${process.env.CONTACT_EMAIL_USER}>`,
-      replyTo: "hello@properpolymer.com",
+      from: `"Proper Polymer" <hello@properpolymer.com>`,
       to: customerEmail,
       subject: `Your Custom Order from Proper Polymer — $${formattedPrice}`,
       html,

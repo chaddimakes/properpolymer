@@ -9,15 +9,17 @@ export async function POST(req: NextRequest) {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    secure: false,
     auth: {
-      user: process.env.CONTACT_EMAIL_USER,
-      pass: process.env.CONTACT_EMAIL_PASS,
+      user: process.env.BREVO_SMTP_USER,
+      pass: process.env.BREVO_SMTP_KEY,
     },
   });
 
   await transporter.sendMail({
-    from: `"Proper Polymer Contact" <${process.env.CONTACT_EMAIL_USER}>`,
+    from: `"Proper Polymer" <hello@properpolymer.com>`,
     to: "hello@properpolymer.com",
     replyTo: email,
     subject: `New message from ${name}`,

@@ -52,9 +52,6 @@ export async function POST(req: NextRequest) {
       shipping_address_collection: { allowed_countries: ["US"] },
       success_url: `${origin}/custom-order?success=1`,
       cancel_url: origin,
-      payment_intent_data: {
-        receipt_email: customerEmail,
-      },
       metadata: {
         customerName,
         customerEmail,
